@@ -10,5 +10,5 @@ package notepad;
  * @author alanm
  */
 public class PersonajeAlan {
-    //Chingue su madre el alan
+    
 }
