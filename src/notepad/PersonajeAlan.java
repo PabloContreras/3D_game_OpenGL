@@ -131,41 +131,77 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
 //        Notepad note = new Notepad();
 //        note.draw_stan(gl, keys['W'], keys['J']);
 
-        DibujaPersonaje p = new DibujaPersonaje();
-        p.dibujaPersonaje(gl, false,false);
+//        DibujaPersonaje p = new DibujaPersonaje();
+//        p.dibujaPersonaje(gl, false,false);
         cargaObj.Model m = null;
 
         try {
-            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\untitled.obj"));
+            //Manos
+            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\manos.obj"));
+            
+            set_material(gl, color(0), color(0), color(0));
+            dibuja(m, gl);
+
+            //Patas
+            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\patas.obj"));
+            set_material(gl, color(255), color(220), color(77));
+            dibuja(m, gl);
+
+            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\pico.obj"));
+            dibuja(m, gl);
+
+            //Cuerpo
+            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\cuerpo.obj"));
+            set_material(gl, color(0), color(0), color(0));
+            dibuja(m, gl);
+
+            //Ojos
+            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\ojos.obj"));
+            set_material(gl, color(220), color(220), color(220));
+            dibuja(m, gl);
+
+            //Ojos 2
+            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\ojos2.obj"));
+            set_material(gl, color(0), color(0), color(0));
+            dibuja(m, gl);
+            //circulo
+            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\circulo.obj"));
+            set_material(gl, color(255), color(255), color(255));
+            dibuja(m, gl);
+
+            // dibuja(m, gl);
         } catch (Exception e) {
 
         }
 
-//        gl.glBegin(GL.GL_TRIANGLES);
-//        for (Face face : m.faces) {
-//            Vector3f n1 = m.norms.get((int) face.norms.getX() - 1);
-//            gl.glNormal3f(n1.x, n1.y, n1.z);
-//            Vector3f v1 = m.verts.get((int) face.verts.getX() - 1);
-//            gl.glVertex3f(v1.x, v1.y, v1.z);
-//
-//            Vector3f n2 = m.norms.get((int) face.norms.getY() - 1);
-//            gl.glNormal3f(n2.x, n2.y, n2.z);
-//            Vector3f v2 = m.verts.get((int) face.verts.getY() - 1);
-//            gl.glVertex3f(v2.x, v2.y, v2.z);
-//
-//            Vector3f n3 = m.norms.get((int) face.norms.getZ() - 1);
-//            gl.glNormal3f(n3.x, n3.y, n3.z);
-//            Vector3f v3 = m.verts.get((int) face.verts.getZ() - 1);
-//            gl.glVertex3f(v3.x, v3.y, v3.z);
-//        }
-//        gl.glEnd();
-
 // Flush all drawing operations to the graphics card
         gl.glFlush();
 
-
     }
+
+    public void dibuja(Model m, GL gl) {
+        gl.glBegin(GL.GL_TRIANGLES);
+        for (Face face : m.faces) {
+            Vector3f n1 = m.norms.get((int) face.norms.getX() - 1);
+            gl.glNormal3f(n1.x, n1.y, n1.z);
+            Vector3f v1 = m.verts.get((int) face.verts.getX() - 1);
+            gl.glVertex3f(v1.x, v1.y, v1.z);
+
+            Vector3f n2 = m.norms.get((int) face.norms.getY() - 1);
+            gl.glNormal3f(n2.x, n2.y, n2.z);
+            Vector3f v2 = m.verts.get((int) face.verts.getY() - 1);
+            gl.glVertex3f(v2.x, v2.y, v2.z);
+
+            Vector3f n3 = m.norms.get((int) face.norms.getZ() - 1);
+            gl.glNormal3f(n3.x, n3.y, n3.z);
+            Vector3f v3 = m.verts.get((int) face.verts.getZ() - 1);
+            gl.glVertex3f(v3.x, v3.y, v3.z);
+        }
+        gl.glEnd();
+    }
+
     
+
     public static float c(float c) {
         return (c / 1);
     }
@@ -220,5 +256,20 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
             keys[e.getKeyCode()] = false;
         }
         System.out.println("key press " + e.getKeyChar());
+    }
+
+    public void set_material(GL gl, float r, float g, float b) {
+        float mat_ambient[] = {r, g, b};
+        float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
+        float mat_specular[] = {0.8f, 0.8f, 0.8f, 1.0f};
+        float shine = 51.2f;
+        gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_AMBIENT, mat_ambient, 0);
+        gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_DIFFUSE, mat_diffuse, 0);
+        gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_SPECULAR, mat_specular, 0);
+        gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
+    }
+
+    public float color(int c) {
+        return (float) ((float) c / (float) 255);
     }
 }
