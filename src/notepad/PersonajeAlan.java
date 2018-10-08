@@ -131,48 +131,11 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
 //        Notepad note = new Notepad();
 //        note.draw_stan(gl, keys['W'], keys['J']);
 
-//        DibujaPersonaje p = new DibujaPersonaje();
-//        p.dibujaPersonaje(gl, false,false);
-        cargaObj.Model m = null;
+        DibujaPersonaje p = new DibujaPersonaje();
+        p.dibujaPersonaje(gl, keys['W'], keys['J']);
+        
 
-        try {
-            //Manos
-            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\manos.obj"));
-            
-            set_material(gl, color(0), color(0), color(0));
-            dibuja(m, gl);
-
-            //Patas
-            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\patas.obj"));
-            set_material(gl, color(255), color(220), color(77));
-            dibuja(m, gl);
-
-            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\pico.obj"));
-            dibuja(m, gl);
-
-            //Cuerpo
-            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\cuerpo.obj"));
-            set_material(gl, color(0), color(0), color(0));
-            dibuja(m, gl);
-
-            //Ojos
-            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\ojos.obj"));
-            set_material(gl, color(220), color(220), color(220));
-            dibuja(m, gl);
-
-            //Ojos 2
-            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\ojos2.obj"));
-            set_material(gl, color(0), color(0), color(0));
-            dibuja(m, gl);
-            //circulo
-            m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\circulo.obj"));
-            set_material(gl, color(255), color(255), color(255));
-            dibuja(m, gl);
-
-            // dibuja(m, gl);
-        } catch (Exception e) {
-
-        }
+      
 
 // Flush all drawing operations to the graphics card
         gl.glFlush();
@@ -199,8 +162,6 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
         }
         gl.glEnd();
     }
-
-    
 
     public static float c(float c) {
         return (c / 1);
