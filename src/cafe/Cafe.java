@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.yourorghere;
+package cafe;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;

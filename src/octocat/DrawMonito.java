@@ -21,28 +21,26 @@ public class DrawMonito {
     private GLUquadric q = null;
     private static int mvt = 0;
     //heigth and widht of each components
-    private static final float HEIGHT_BODY = 0.5f;
+    private static final float HEIGHT_BODY = 0.1f;
     private static final float TOP_BODY = 0.35f;
     private static final float BOTTOM_BODY = 0.40f;
-    private static final float HEIGHT_LEGS = 0.2f;
-    private static final float WIDTH_LEGS = 0.185f;
+    private static final float HEIGHT_LEGS = 0.5f;
+    private static final float WIDTH_LEGS = 0.10f;
     private static final float HEIGHT_ARMS = 0.22f;
     private static final float WIDTH_ARMS = 0.09f;
+    private static final float HEIGHT_EAR = 0.1f;
+    private static final float WIDTH_MASK = 0.450f;
     private static final float WIDTH_HEAD = 0.5f;
-    private static final float WIDTH_MASK = 0.4f;
+    
     private static final float WIDTH_EYES = 0.3f;
     private static final float WIDTH_HANDS = 0.1f;
     private static final float WIDTH_FINGERS = 0.0525f;
     private static final float WIDTH_SHOES = 0.28f;
     private static final float HEIGHT_SHOES = 0.05f;
     private static final float WIDTH_OPEN_MOUTH = 0.1f;
-    private static final float WIDTH_BUTTONS = 0.0525f;
-    private static final float SPACE_BETWEEN_BUTTONS = 0.12f;
-    //private static final float WIDTH_BOTTOM_BONNET = 0.525f;
-    //private static final float HEIGHT_BOTTOM_BONNET = 0.12f;
-    //private static final float WIDTH_BONNET = 0.52f;
-    private static final float WIDTH_PUPILS = 0.03f;
-    //private static final float WIDTH_POMPON = 0.12f;
+    //private static final float WIDTH_BUTTONS = 0.0525f;
+    //private static final float SPACE_BETWEEN_BUTTONS = 0.12f;
+    private static final float WIDTH_PUPILS = 0.1f;
 
     //position of each component int the window
     public DrawMonito() {
@@ -56,7 +54,7 @@ public class DrawMonito {
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
 
-        //Stan is walking
+        //Octocat is walking
         if(walk && mvt%20+10>20){
             draw_legs(gl, glu, 'W', false);
             draw_legs(gl, glu, ' ', true);
@@ -72,7 +70,7 @@ public class DrawMonito {
             draw_head (gl, glu, false);
         }
            
-       //stan is jumping
+       //octocat is jumping
         else if(jump && mvt%20+10>20){
             gl.glTranslatef(0f, 0.35f, 0f);
             draw_legs(gl, glu, 'J', false);
@@ -82,7 +80,7 @@ public class DrawMonito {
             draw_head (gl, glu, true);
         }
         
-        //stan is normal
+        //octocat is normal
         else{
             draw_legs(gl, glu, ' ', false);
             draw_legs(gl, glu, ' ', true);
@@ -93,15 +91,14 @@ public class DrawMonito {
         
         mvt++;
         draw_body (gl, glu);
-        draw_scarf (gl, glu);
-        //draw_hat (gl, glu);
+        draw_ears (gl, glu);
 
     }
 
     public void draw_body(GL gl, GLU glu) {
 
         //we create stan body
-        set_brown_material(gl);
+        set_black_material(gl);
         gl.glPushMatrix();
         gl.glRotatef(90f, 1f, 0f, 0f);
         glu.gluCylinder(q, TOP_BODY, BOTTOM_BODY, HEIGHT_BODY, SLICES, STACKS);
@@ -112,7 +109,7 @@ public class DrawMonito {
         gl.glPopMatrix();
 
         //we create sweat zip
-        set_grey_material(gl);
+        /*set_grey_material(gl);
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, -0.475f, 0.40f);
         gl.glRotatef(-6f, 1.0f, 0f, 0f);
@@ -121,39 +118,40 @@ public class DrawMonito {
         gl.glVertex3f(0.0f, 0.0f, 0.0f);
         gl.glVertex3f(0.0f, 0.44f, 0.0f);
         gl.glEnd();
-        gl.glPopMatrix();
+        gl.glPopMatrix();*/
 
         //we create sweat buttons
-        gl.glPushMatrix();
+        /*gl.glPushMatrix();
         gl.glTranslatef(-0.06f, -0.15f, 0.315f);
         glu.gluSphere(q, WIDTH_BUTTONS, SLICES, STACKS);
         gl.glTranslatef(0.0f, -SPACE_BETWEEN_BUTTONS, 0.012f);
         glu.gluSphere(q, WIDTH_BUTTONS, SLICES, STACKS);
         gl.glTranslatef(0.0f, -SPACE_BETWEEN_BUTTONS, 0.013f);
         glu.gluSphere(q, WIDTH_BUTTONS, SLICES, STACKS);
-        gl.glPopMatrix();
+        gl.glPopMatrix();*/
 
     }
 
     public void draw_head(GL gl, GLU glu, boolean jump) {
-
         //we create head
-        /*set_black_material(gl);
+        set_black_material(gl);
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, 0.5f, 0f);
         glu.gluSphere(q, WIDTH_HEAD, SLICES, STACKS);        
-        gl.glPopMatrix();*/
+        gl.glPopMatrix();
+        
         //We create a mask
         set_skin_material(gl);
         gl.glPushMatrix();
-        gl.glTranslatef(0.0f, 0.5f, 0f);
+        gl.glTranslatef(0f, 0.460f, 0.100f);
         glu.gluSphere(q, WIDTH_MASK, SLICES, STACKS);        
         gl.glPopMatrix();
+        
         //we create eyes (white)
         set_eyes_material(gl);
 
         gl.glPushMatrix();
-        gl.glTranslatef(-0.08f, 0.45f, 0.205f);
+        gl.glTranslatef(-0.08f, 0.45f, 0.250f);
         glu.gluSphere(q, WIDTH_EYES, SLICES, STACKS);
         gl.glTranslatef(0.16f, 0.0f, 0.0f);
         glu.gluSphere(q, WIDTH_EYES, SLICES, STACKS);
@@ -165,10 +163,10 @@ public class DrawMonito {
         //mouth is different when stan is jumping
         if (jump == true) {
             set_grey_material(gl);
-            gl.glTranslatef(0.0f, 0.19f, 0.275f);
+            gl.glTranslatef(0.0f, 0.19f, 0.350f);
             glu.gluSphere(q, WIDTH_OPEN_MOUTH, SLICES, STACKS);
         } else {
-            gl.glTranslatef(0.1f, 0.19f, 0.257f);
+            gl.glTranslatef(0.1f, 0.19f, 0.350f);
             gl.glRotatef(45f, 1f, 0f, 0f);
             gl.glScalef(-0.2f, 0.03f, 0.1f);
             box(gl);
@@ -176,46 +174,33 @@ public class DrawMonito {
         gl.glPopMatrix();
 
         //we create eyes (black)
-        set_grey_material(gl);
+        set_brown_material(gl);
         gl.glPushMatrix();
-        gl.glTranslatef(-0.07f, 0.35f, 0.468f);
+        gl.glTranslatef(-0.11f, 0.35f, 0.450f);
         glu.gluSphere(q, WIDTH_PUPILS, SLICES, STACKS);
-        gl.glTranslatef(0.14f, 0f, 0f);
+        gl.glTranslatef(0.22f, 0f, 0f);
         glu.gluSphere(q, WIDTH_PUPILS, SLICES, STACKS);
         gl.glPopMatrix();
 
     }
 
-    /*public void draw_hat(GL gl, GLU glu) {
-        //we create bottom of bonnet
+    public void draw_ears(GL gl, GLU glu) {
+        
+        
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, 0.58f, -0.01f);
         gl.glRotatef(80f, 1f, 0f, 0f);
-        glu.gluCylinder(q, WIDTH_BOTTOM_BONNET,
-                WIDTH_BOTTOM_BONNET, HEIGHT_BOTTOM_BONNET, 100, STACKS);
+        gl.glBegin(GL.GL_POLYGON);/* f1: front */
+        gl.glNormal3f(-1.0f, 0.0f, 0.0f);
+        gl.glVertex3f(1.0f, 0.0f, 0.0f);
+        gl.glVertex3f(1.0f, 0.0f, 0.0f);
+        gl.glVertex3f(1.0f, 0.0f, 0.0f);
+        gl.glEnd();
         gl.glRotatef(80f, -1f, 0f, 0f);
-        gl.glTranslatef(0.0f, -HEIGHT_BOTTOM_BONNET + 0.005f, 0.02f);
+        gl.glTranslatef(0.0f, -HEIGHT_EAR + 0.005f, 0.02f);
         gl.glRotatef(80f, 1f, 0f, 0f);
-        glu.gluDisk(q, 0f, 0.527, SLICES, STACKS);
         gl.glPopMatrix();
-        //we create bonnet     
-        set_blue_material(gl);
-        gl.glPushMatrix();
-        gl.glTranslatef(0.0f, 0.5f, 0.0f);
-        gl.glRotatef(350f, 1f, 0f, 0f);
-        double[] cutplane = new double[]{0.0f, 1.0f, 0.0f, 0.0f};
-        gl.glClipPlane(GL.GL_CLIP_PLANE2, cutplane, 0);
-        gl.glEnable(GL.GL_CLIP_PLANE2);
-        glu.gluSphere(q, WIDTH_BONNET, 100, 100);
-        gl.glDisable(GL.GL_CLIP_PLANE2);
-        gl.glPopMatrix();
-        //we create pompon
-        set_red_material(gl);
-        gl.glPushMatrix();
-        gl.glTranslatef(0.0f, 1.05f, -0.1f);
-        glu.gluSphere(q, WIDTH_POMPON, SLICES, STACKS);
-        gl.glPopMatrix();
-    }*/
+    }
 
     public void draw_legs(GL gl, GLU glu, char c, boolean left) {
         gl.glPushMatrix();
@@ -233,12 +218,12 @@ public class DrawMonito {
             }
         }
         //we create legs
-        set_blue_material(gl);
+        set_black_material(gl);
         gl.glPushMatrix();
         if (left) {
-            gl.glTranslatef(-0.19f, -0.45f, 0f);
+            gl.glTranslatef(-0.19f, -0.15f, 0f);
         } else {
-            gl.glTranslatef(0.19f, -0.45f, 0f);
+            gl.glTranslatef(0.19f, -0.15f, 0f);
         }
         gl.glRotatef(90f, 1f, 0f, 0f);
         glu.gluCylinder(q, WIDTH_LEGS, WIDTH_LEGS, HEIGHT_LEGS, SLICES, STACKS);
@@ -280,7 +265,7 @@ public class DrawMonito {
     }
 
     public void draw_arm_left(GL gl, GLU glu, char c) {
-        set_red_material(gl);
+        set_black_material(gl);
         gl.glPushMatrix();
         //we orientate axes if stan is walking or is jumping
         if (c == 'J') {
@@ -304,7 +289,7 @@ public class DrawMonito {
 
         gl.glPopMatrix();
         //we create left arm
-        set_brown_material(gl);
+        set_black_material(gl);
         gl.glPushMatrix();
         gl.glTranslatef(-0.37f, -0.125f, 0f);
         gl.glRotatef(90f, 1f, -0.20f, 0f);
@@ -326,7 +311,7 @@ public class DrawMonito {
     }
 
     public void draw_arm_right(GL gl, GLU glu, char c) {
-        set_red_material(gl);
+        set_black_material(gl);
         gl.glPushMatrix();
         //we orientate axes if stan is walking or is jumping
         if (c == 'J') {
@@ -349,7 +334,7 @@ public class DrawMonito {
         }
         gl.glPopMatrix();
         //we create right arm
-        set_brown_material(gl);
+        set_black_material(gl);
         gl.glPushMatrix();
         gl.glTranslatef(0.37f, -0.125f, 0f);
         gl.glRotatef(90f, 1f, 0.20f, 0f);
@@ -370,7 +355,7 @@ public class DrawMonito {
         gl.glPopMatrix();
     }
 
-    public void draw_scarf(GL gl, GLU glu) {
+    /*public void draw_scarf(GL gl, GLU glu) {
 
         //we create scarf
         set_red_material(gl);
@@ -380,7 +365,7 @@ public class DrawMonito {
         draw_torus(gl, 0.32f, 0.092f, SLICES, STACKS);
         gl.glPopMatrix();
 
-    }
+    }*/
 
     public void draw_torus(GL gl, float R, float r, int N, int n) {
 

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package org.yourorghere;
+package cafe;
 
 import com.sun.opengl.util.Animator;
 import java.awt.Dimension;

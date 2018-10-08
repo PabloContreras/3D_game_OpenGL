@@ -21,10 +21,7 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 
-/**
- *
- * @author Elizabeth
- */
+
 public class Monito extends JFrame implements GLEventListener, 
         KeyListener, MouseListener, MouseMotionListener {
 
