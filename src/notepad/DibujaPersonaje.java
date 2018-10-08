@@ -160,7 +160,7 @@ public class DibujaPersonaje {
 
     public void dibujaManos(Model m, GL gl) throws IOException {
         //Manos
-        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\manos.obj"));
+        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\alanm\\Desktop\\personaje\\manos.obj"));
 
         set_material(gl, color(0), color(0), color(0));
         dibuja(m, gl);
@@ -168,39 +168,39 @@ public class DibujaPersonaje {
     }
 
     public void dibujaPico(Model m, GL gl) throws IOException {
-        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\pico.obj"));
+        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\alanm\\Desktop\\personaje\\pico.obj"));
         set_material(gl, color(255), color(220), color(77));
         dibuja(m, gl);
     }
 
     public void dibujaCuerpo(Model m, GL gl) throws IOException {
         //Cuerpo
-        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\cuerpo.obj"));
+        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\alanm\\Desktop\\personaje\\cuerpo.obj"));
         set_material(gl, color(0), color(0), color(0));
         dibuja(m, gl);
     }
 
     public void dibujaOjos(Model m, GL gl) throws IOException {
         //Ojos
-        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\ojos.obj"));
+        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\alanm\\Desktop\\personaje\\ojos.obj"));
         set_material(gl, color(220), color(220), color(220));
         dibuja(m, gl);
         //Ojos 2
-        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\ojos2.obj"));
+        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\alanm\\Desktop\\personaje\\ojos2.obj"));
         set_material(gl, color(0), color(0), color(0));
         dibuja(m, gl);
     }
 
     public void dibujaCirculo(Model m, GL gl) throws IOException {
         //circulo
-        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\circulo.obj"));
+        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\alanm\\Desktop\\personaje\\circulo.obj"));
         set_material(gl, color(255), color(255), color(255));
         dibuja(m, gl);
     }
 
     public void dibujaPatas(Model m, GL gl, char c, boolean left) throws IOException {
         //Patas
-        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\patas.obj"));
+        m = cargaObj.OBJLoader.loadModel(new File("C:\\Users\\alanm\\Desktop\\personaje\\patas.obj"));
         set_material(gl, color(255), color(220), color(77));
 
         if (c == 'W') {
