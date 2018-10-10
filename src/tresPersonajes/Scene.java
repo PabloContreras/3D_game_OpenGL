@@ -157,7 +157,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
 
         DrawMonito drawMonito = new DrawMonito();
         gl.glTranslatef(1.8f, 0, 0.0f);
-        drawMonito.draw_stan(gl, keys['W'], keys['J']);
+        drawMonito.draw_stan(gl, keys['W'], keys['J'], keys['A']);
         gl.glFlush();
     }
 
@@ -224,6 +224,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
             keys['W'] = false;
             keys['J'] = false;
             keys['Q'] = false;
+            keys['A'] = false;
             keys[e.getKeyCode()] = true;
         } else {
             keys[e.getKeyCode()] = false;
