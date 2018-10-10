@@ -21,7 +21,7 @@ public class DrawMonito {
     private GLUquadric q = null;
     private static int mvt = 0;
     //heigth and widht of each components
-    private static final float HEIGHT_BODY = 0.1f;
+    private static final float HEIGHT_BODY = 0.3f;
     private static final float TOP_BODY = 0.35f;
     private static final float BOTTOM_BODY = 0.40f;
     private static final float HEIGHT_LEGS = 0.5f;
