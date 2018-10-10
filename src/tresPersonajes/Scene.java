@@ -8,6 +8,7 @@ package tresPersonajes;
 import cafe.Cafe;
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureCoords;
 import com.sun.opengl.util.texture.TextureIO;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -82,10 +83,23 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         System.err.println("INIT GL IS: " + gl.getClass().getName());
         gl.setSwapInterval(1);
 
-        float light_ambient[] = {1.9f, 1.9f, 1.9f, 1.0f};
-        float light_diffuse[] = {1.3f, 1.3f, 1.3f, 1.0f};
-        float light_specular[] = {1.0f, 1.0f, 1.5f, 1.5f};
-        float light_position[] = {1f, 5f, -2f, 1.0f};
+//        float light_ambient[] = {1.9f, 1.9f, 1.9f, 1.0f};
+////        float light_ambient[] = {0.9f, 0.9f, 0.9f, 0.0f};
+//
+//        float light_diffuse[] = {1.3f, 1.3f, 1.3f, 1.0f};
+////
+//        float light_specular[] = {1.0f, 1.0f, 1.5f, 1.5f};
+////        float light_position[] = {1f, 5f, -2f, 1.0f};
+//
+//        float light_position[] = {1f, 5f, -2f, 1.0f};
+//        float light_ambient[] = {0.9f, 0.9f, 0.9f, 1.0f};
+//        float light_diffuse[] = {0.3f, 0.3f, 0.3f, 1.0f};
+//        float light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+//        float light_position[] = {1.0f, 1.5f, 1.0f, 0.0f};
+        float light_ambient[] = {0.9f, 0.9f, 0.9f, 1.0f};
+        float light_diffuse[] = {0.3f, 0.3f, 0.3f, 1.0f};
+        float light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
+        float light_position[] = {1.0f, 1.5f, 1.0f, 0.0f};
 
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_AMBIENT, light_ambient, 0);
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, light_diffuse, 0);
@@ -114,8 +128,6 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
 
         gl.glLoadIdentity();
         glu.gluLookAt(0.1f, 0.0f, 4.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
-        
-     
 
         gl.glTranslatef(X_POSITION, Y_POSITION, Z_POSITION);
         gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);
@@ -123,29 +135,45 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         gl.glRotatef(90, 0.0f, 0.0f, 1.0f);
         gl.glScalef(.5f, .5f, .5f);
 
-//        gl.glPushMatrix();
-//        dibujaFondo(gl);
-//        gl.glPopMatrix();
+        try {
+            Texture tex = TextureIO.newTexture(new File("fondo.jpg"), true);
+            tex.enable();
+            tex.bind();
+            gl.glTexEnvi(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_REPLACE);
+
+            gl.glBegin(GL.GL_QUADS);
+            gl.glTexCoord2f(0f, 1f);
+            gl.glVertex3f(-5f, -3.5f, 0f);
+            gl.glTexCoord2f(1f, 1f);
+            gl.glVertex3f(5f, -3.5f, 0f);
+            gl.glTexCoord2f(1f, 0f);
+            gl.glVertex3f(5f, 3.5f, 0f);
+            gl.glTexCoord2f(0f, 0f);
+            gl.glVertex3f(-5f, 3.5f, 0f);
+            gl.glEnd();
+            tex.disable();
+        } catch (Exception e) {
+
+        }
+
         DibujaPersonaje alan = new DibujaPersonaje();
         alan.posX = -2.0f; //LADOS
-        alan.posY = -0.5f; //ARRIBA, ABAJO
-        alan.posZ = 2.7f; // CERA, LEJOS
+        alan.posY = -1.5f; //ARRIBA, ABAJO
+        alan.posZ = 1.0f; // CERA, LEJOS
         alan.dibujaPersonaje(gl, false, false);
 
         Cafe cafe = new Cafe();
-        gl.glTranslatef(0, 0.2f, 2.5f);
+        gl.glTranslatef(0, -0.8f, 0.8f);
         cafe.draw_stan(gl, false, false);
 
         DrawMonito drawMonito = new DrawMonito();
-        gl.glTranslatef(1.8f, 0, 0);
+        gl.glTranslatef(1.8f, 0, 0.0f);
         drawMonito.draw_stan(gl, false, false);
-
         gl.glFlush();
-
     }
 
     public void dibujaFondo(GL gl) {
-        cargaTextura(gl, "hormiguero.jpg");
+        cargaTextura(gl, "fondo.jpg");
         gl.glBindTexture(GL.GL_TEXTURE_2D, texture);
         gl.glBegin(GL.GL_QUADS);
         gl.glTexCoord2f(0f, 1f);

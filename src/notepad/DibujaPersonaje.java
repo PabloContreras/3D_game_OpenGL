@@ -156,6 +156,7 @@ public class DibujaPersonaje {
             dibujaOjos(m, gl);
             dibujaCuerpo(m, gl);
             dibujaCirculo(m, gl);
+            
         } catch (IOException ex) {
             
         }
