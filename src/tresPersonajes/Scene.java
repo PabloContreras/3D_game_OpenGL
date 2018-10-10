@@ -297,7 +297,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
             if (audio != null) {
                 AudioPlayer.player.stop(audio);
             }
-            sounds = new FileInputStream(new File("sounds/" + sound + ".wav"));
+            sounds = new FileInputStream(new File("sounds/ninja.wav"));
             audio = new AudioStream(sounds);
             AudioPlayer.player.start(audio);
 

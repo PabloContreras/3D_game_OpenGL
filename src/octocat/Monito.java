@@ -5,6 +5,8 @@
 package octocat;
 
 import com.sun.opengl.util.Animator;
+import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureIO;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
@@ -14,21 +16,33 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 
 public class Monito extends JFrame implements GLEventListener, 
         KeyListener, MouseListener, MouseMotionListener {
-
+    AudioStream audio;
+    InputStream sounds;
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
     private int oldMouseX;
     private int oldMouseY;
+    boolean reproducir = false;
     boolean[] keys=new boolean[256]; //to know which key is pressed
     
     //position of stan in the window
@@ -41,7 +55,7 @@ public class Monito extends JFrame implements GLEventListener,
     
     public static void main(String[] args){
         
-        Frame frame = new Frame("South Park : Stan (Press J to jump and press W to walk)");
+        Frame frame = new Frame("JS Ninja (Press J to jump, press W to walk and S to sound)");
         GLCanvas canvas = new GLCanvas();
         canvas.addGLEventListener(new Monito());
         frame.add(canvas);
@@ -127,13 +141,66 @@ public class Monito extends JFrame implements GLEventListener,
         gl.glTranslatef(X_POSITION, Y_POSITION, Z_POSITION);
         gl.glRotatef(view_rotx,1.0f,0.0f,0.0f);
         gl.glRotatef(view_roty,0.0f,1.0f,0.0f);
-        gl.glRotatef(90,0.0f,0.0f,1.0f);        
+        gl.glRotatef(90,0.0f,0.0f,1.0f);  
+        //Fondo
+        try {
+            Texture tex = TextureIO.newTexture(new File("fondo.jpg"), true);
+            tex.enable();
+            tex.bind();
+            gl.glTexEnvi(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_REPLACE);
+
+            gl.glBegin(GL.GL_QUADS);
+            gl.glTexCoord2f(0f, 1f);
+            gl.glVertex3f(-5f, -3.5f, 0f);
+            gl.glTexCoord2f(1f, 1f);
+            gl.glVertex3f(5f, -3.5f, 0f);
+            gl.glTexCoord2f(1f, 0f);
+            gl.glVertex3f(5f, 3.5f, 0f);
+            gl.glTexCoord2f(0f, 0f);
+            gl.glVertex3f(-5f, 3.5f, 0f);
+            gl.glEnd();
+            tex.disable();
+        } catch (Exception e) {
+
+        }
         //we draw Stan in the window
         DrawMonito stan = new DrawMonito(); 
         stan.draw_stan(gl, keys['W'], keys['J']);         
         // Flush all drawing operations to the graphics card
         gl.glFlush();        
     }
+    public void dibujaFondo(GL gl) {
+        cargaTextura(gl, "fondo.jpg");
+        gl.glBindTexture(GL.GL_TEXTURE_2D, texture);
+        gl.glBegin(GL.GL_QUADS);
+        gl.glTexCoord2f(0f, 1f);
+        gl.glVertex3f(-5f, -3.5f, 0f);
+        gl.glTexCoord2f(1f, 1f);
+        gl.glVertex3f(5f, -3.5f, 0f);
+        gl.glTexCoord2f(1f, 0f);
+        gl.glVertex3f(5f, 3.5f, 0f);
+        gl.glTexCoord2f(0f, 0f);
+        gl.glVertex3f(-5f, 3.5f, 0f);
+        gl.glEnd();
+    }
+
+    public void cargaTextura(GL gl, String text) {
+        gl.glClearDepth(1.0f);
+        gl.glEnable(GL.GL_DEPTH_TEST);
+        gl.glDepthFunc(GL.GL_LEQUAL);
+        gl.glHint(GL.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
+
+        gl.glEnable(GL.GL_TEXTURE_2D);
+        try {
+
+            File im = new File(text);
+            Texture t = TextureIO.newTexture(im, true);
+            texture = t.getTextureObject();
+
+        } catch (IOException e) {
+        }
+    }
+    int texture;
     
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged){}
     public void mouseClicked(MouseEvent e){}
@@ -168,10 +235,39 @@ public class Monito extends JFrame implements GLEventListener,
             keys['W']=false;
             keys['J']=false;
             keys[e.getKeyCode()]=true;    
-        }
-        else
+        }else{
             keys[e.getKeyCode()]=false;    
-        System.out.println("key press " + e.getKeyChar());
+            System.out.println("key press " + e.getKeyChar());
+        }
+        if (e.getKeyCode() == 115 ) {
+            reproducir = true;
+            try {
+                sounds = new FileInputStream(new File("sounds/ninja.wav"));
+                repAudio("ninja");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Monito.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else if(e.getKeyCode() == 115 && reproducir){
+             AudioPlayer.player.stop(sounds);
+        }
+    }
+    public void repAudio(String sound) {
+        try {
+            if (audio != null) {
+                AudioPlayer.player.stop(audio);
+            }
+            sounds = new FileInputStream(new File("sounds/" + sound + ".wav"));            
+            audio = new AudioStream(sounds);
+            AudioPlayer.player.start(audio);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
+        }
+    }
+    public void detAudio() {
+        if (audio != null) {
+            AudioPlayer.player.stop(audio);
+        }
     }
 
     
