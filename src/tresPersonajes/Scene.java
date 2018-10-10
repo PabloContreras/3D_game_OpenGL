@@ -231,7 +231,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == 87 || e.getKeyCode() == 119) {
 
-            repAudio("prev");
+            repAudio("ninja");
         }
         if (e.getKeyCode() == 72 || e.getKeyCode() == 104) {
             brinca = false;
