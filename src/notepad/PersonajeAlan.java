@@ -23,6 +23,11 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 import cargaObj.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import javax.swing.JOptionPane;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  *
@@ -30,7 +35,10 @@ import cargaObj.*;
  */
 public class PersonajeAlan extends JFrame implements GLEventListener,
         KeyListener, MouseListener, MouseMotionListener {
-
+    AudioStream audio;
+    InputStream sounds;
+    
+    boolean brinca = false;
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
     private int oldMouseX;
@@ -189,6 +197,13 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
     }
 
     public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == 87 || e.getKeyCode() == 119) {
+
+            repAudio("pinguino");
+        }
+        if (e.getKeyCode() == 72 || e.getKeyCode() == 104) {
+            brinca = false;
+        }
     }
 
     public void mousePressed(MouseEvent e) {
@@ -232,5 +247,23 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
 
     public float color(int c) {
         return (float) ((float) c / (float) 255);
+    }
+    private void repAudio(String ninja) {
+        try {
+            if (audio != null) {
+                AudioPlayer.player.stop(audio);
+            }
+            sounds = new FileInputStream(new File("sounds/" + ninja + ".wav"));
+            audio = new AudioStream(sounds);
+            AudioPlayer.player.start(audio);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
+        }
+    }
+    public void detAudio() {
+        if (audio != null) {
+            AudioPlayer.player.stop(audio);
+        }
     }
 }

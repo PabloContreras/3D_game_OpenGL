@@ -15,12 +15,18 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCanvas;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  *
@@ -28,7 +34,10 @@ import javax.swing.JFrame;
  */
 public class DibujaCafe extends JFrame implements GLEventListener, 
         KeyListener, MouseListener, MouseMotionListener {
-
+    AudioStream audio;
+    InputStream sounds;
+    
+    boolean brinca = false;
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
     private int oldMouseX;
@@ -147,7 +156,15 @@ public class DibujaCafe extends JFrame implements GLEventListener,
     public void mouseReleased(MouseEvent e){}
     public void mouseMoved(MouseEvent e){}
     public void keyTyped(KeyEvent e){}   
-    public void keyReleased(KeyEvent e){}
+    public void keyReleased(KeyEvent e){
+        if (e.getKeyCode() == 87 || e.getKeyCode() == 119) {
+
+            repAudio("cafe");
+        }
+        if (e.getKeyCode() == 72 || e.getKeyCode() == 104) {
+            brinca = false;
+        }
+    }
     
     
     public void mousePressed(MouseEvent e){
@@ -177,6 +194,24 @@ public class DibujaCafe extends JFrame implements GLEventListener,
         else
             keys[e.getKeyCode()]=false;    
         System.out.println("key press " + e.getKeyChar());
+    }
+    private void repAudio(String ninja) {
+        try {
+            if (audio != null) {
+                AudioPlayer.player.stop(audio);
+            }
+            sounds = new FileInputStream(new File("sounds/" + ninja + ".wav"));
+            audio = new AudioStream(sounds);
+            AudioPlayer.player.start(audio);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
+        }
+    }
+    public void detAudio() {
+        if (audio != null) {
+            AudioPlayer.player.stop(audio);
+        }
     }
 
     
