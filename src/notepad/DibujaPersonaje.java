@@ -23,6 +23,10 @@ import javax.media.opengl.glu.GLUquadric;
 public class DibujaPersonaje {
     
     String rta = "personajes\\pinguino\\";
+    
+    public float posX = 0;
+    public float posY = 0;
+    public float posZ = 0;
 
     private static int mvt = 0;
     private static final float posOjo1[] = {c(2.5f), c(8), 0};
@@ -226,19 +230,19 @@ public class DibujaPersonaje {
         gl.glBegin(GL.GL_TRIANGLES);
         for (Face face : m.faces) {
             Vector3f n1 = m.norms.get((int) face.norms.getX() - 1);
-            gl.glNormal3f(n1.x, n1.y, n1.z);
+            gl.glNormal3f(n1.x+posX, n1.y+posY, n1.z+posZ);
             Vector3f v1 = m.verts.get((int) face.verts.getX() - 1);
-            gl.glVertex3f(v1.x, v1.y, v1.z);
+            gl.glVertex3f(v1.x+posX, v1.y+posY, v1.z+posZ);
 
             Vector3f n2 = m.norms.get((int) face.norms.getY() - 1);
-            gl.glNormal3f(n2.x, n2.y, n2.z);
+            gl.glNormal3f(n2.x+posX, n2.y+posY, n2.z+posZ);
             Vector3f v2 = m.verts.get((int) face.verts.getY() - 1);
-            gl.glVertex3f(v2.x, v2.y, v2.z);
+            gl.glVertex3f(v2.x+posX, v2.y+posY, v2.z+posZ);
 
             Vector3f n3 = m.norms.get((int) face.norms.getZ() - 1);
-            gl.glNormal3f(n3.x, n3.y, n3.z);
+            gl.glNormal3f(n3.x+posX, n3.y+posY, n3.z+posZ);
             Vector3f v3 = m.verts.get((int) face.verts.getZ() - 1);
-            gl.glVertex3f(v3.x, v3.y, v3.z);
+            gl.glVertex3f(v3.x+posX, v3.y+posY, v3.z+posZ);
         }
         gl.glEnd();
     }
