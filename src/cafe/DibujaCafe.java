@@ -148,8 +148,8 @@ public class DibujaCafe extends JFrame implements GLEventListener,
 
         }
         //we draw Stan in the window
-        Cafe stan = new Cafe();
-        stan.draw_stan(gl, keys['W'], keys['J']);
+        Cafe stan = new Cafe(); 
+        stan.draw_stan(gl, keys['W'], keys['J'], keys['q']);         
         // Flush all drawing operations to the graphics card
         gl.glFlush();
     }

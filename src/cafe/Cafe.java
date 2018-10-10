@@ -48,14 +48,29 @@ public class Cafe {
     {
     }
 
-    public void draw_stan(GL gl, boolean walk, boolean jump) {
+    public void draw_stan(GL gl, boolean walk, boolean jump, boolean walkAlone) {
 
         GLU glu = new GLU();
         q = glu.gluNewQuadric();
         glu.gluQuadricDrawStyle(q, GLU.GLU_FILL);
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
-
+        
+        //coffe is walk alne, bitch
+        if(walkAlone && mvt%20+10>20){       
+            draw_legs(gl, glu, 'Q', false);
+            draw_legs(gl, glu, ' ', true);
+            draw_arm_left(gl, glu, ' ');
+            draw_arm_right(gl, glu, 'Q');
+            draw_head (gl, glu, false);
+        }
+        else if(walkAlone && mvt%20+10<=20){
+            draw_legs(gl, glu, ' ', false);
+            draw_legs(gl, glu, 'Q', true);
+            draw_arm_left(gl, glu, 'Q');
+            draw_arm_right(gl, glu, ' ');
+            draw_head (gl, glu, false);
+        }
         //Stan is walking
         if(walk && mvt%20+10>20){       
             draw_legs(gl, glu, 'W', false);
@@ -239,6 +254,10 @@ public class Cafe {
             gl.glTranslatef(0f, -0.1f, -0.2f);
             gl.glRotatef(30, -100f, 0f, 0f);
         }
+        if (c == 'Q') {
+            gl.glTranslatef(0f, -0.1f, -0.2f);
+            gl.glRotatef(30, -100f, 0f, 0f);
+        }
         if (c == 'J') {
             gl.glTranslatef(0f, -0.05f, -0.1f);
             if (left) {
@@ -311,6 +330,12 @@ public class Cafe {
             gl.glTranslatef(0.05f, 0.015f, 0.05f);
             glu.gluSphere(q, WIDTH_FINGERS, SLICES, STACKS);
         }
+        if (c == 'Q') {
+            gl.glTranslatef(-0.45f, -0.38f, 0.1f);
+            glu.gluSphere(q, WIDTH_HANDS, SLICES, STACKS);
+            gl.glTranslatef(0.05f, 0.015f, 0.05f);
+            glu.gluSphere(q, WIDTH_FINGERS, SLICES, STACKS);
+        }
         if (c == ' ') {
             gl.glTranslatef(-0.45f, -0.42f, 0f);
             glu.gluSphere(q, WIDTH_HANDS, SLICES, STACKS);
@@ -328,6 +353,14 @@ public class Cafe {
             gl.glRotatef(150, 0f, -100f, 0f);
         }
         if (c == 'W') {
+            gl.glRotatef(20, -1f, 0f, 0f);
+        }
+        glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
+        glu.gluSphere(q, WIDTH_ARMS, SLICES, STACKS);
+        gl.glRotatef(90f, -1f, 0.20f, 0f);
+        gl.glTranslatef(0f, -HEIGHT_ARMS, 0f);
+        gl.glRotatef(90f, 1f, -0.20f, 0f);
+        if (c == 'Q') {
             gl.glRotatef(20, -1f, 0f, 0f);
         }
         glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
@@ -358,6 +391,12 @@ public class Cafe {
             gl.glTranslatef(-0.05f, 0.015f, 0.05f);
             glu.gluSphere(q, WIDTH_FINGERS, SLICES, STACKS);
         }
+        if (c == 'Q') {
+            gl.glTranslatef(0.45f, -0.38f, 0.1f);
+            glu.gluSphere(q, WIDTH_HANDS, SLICES, STACKS);
+            gl.glTranslatef(-0.05f, 0.015f, 0.05f);
+            glu.gluSphere(q, WIDTH_FINGERS, SLICES, STACKS);
+        }
         if (c == ' ') {
             gl.glTranslatef(0.45f, -0.42f, 0f);
             glu.gluSphere(q, WIDTH_HANDS, SLICES, STACKS);
@@ -376,6 +415,10 @@ public class Cafe {
         if (c == 'W') {
             gl.glRotatef(20, -1f, 0f, 0f);
         }
+        if (c == 'Q') {
+            gl.glRotatef(20, -1f, 0f, 0f);
+        }
+        
         glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
         glu.gluSphere(q, WIDTH_ARMS, SLICES, STACKS);
         gl.glRotatef(90f, -1f, -0.20f, 0f);

@@ -50,6 +50,8 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
     private int oldMousey;
     boolean avanzaB = false;
     boolean brinca = false;
+    boolean walkAlone = false;
+    
     boolean[] keys = new boolean[256];
     private static final float X_POSITION = 0f;
     private static final float Y_POSITION = 0f;
@@ -151,7 +153,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
 
         Cafe cafe = new Cafe();
         gl.glTranslatef(0, -0.8f, 0.8f);
-        cafe.draw_stan(gl, keys['W'], keys['J']);
+        cafe.draw_stan(gl, keys['W'], keys['J'],keys['Q']);
 
         DrawMonito drawMonito = new DrawMonito();
         gl.glTranslatef(1.8f, 0, 0.0f);
@@ -221,6 +223,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         if (e.getKeyCode() < 250 && keys[e.getKeyCode()] == false) {
             keys['W'] = false;
             keys['J'] = false;
+            keys['Q'] = false;
             keys[e.getKeyCode()] = true;
         } else {
             keys[e.getKeyCode()] = false;
@@ -236,6 +239,11 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         if (e.getKeyCode() == 72 || e.getKeyCode() == 104) {
             brinca = false;
         }
+        if (e.getKeyCode() == 81 || e.getKeyCode() == 113) {
+            walkAlone = false;
+            
+        }
+        
     }
 
     public void mouseClicked(MouseEvent e) {
