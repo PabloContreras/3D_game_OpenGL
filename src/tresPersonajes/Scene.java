@@ -50,6 +50,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
     private int oldMousey;
     boolean avanzaB = false;
     boolean brinca = false;
+    boolean[] keys = new boolean[256];
     private static final float X_POSITION = 0f;
     private static final float Y_POSITION = 0f;
     private static final float Z_POSITION = 0f;
@@ -83,19 +84,6 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         System.err.println("INIT GL IS: " + gl.getClass().getName());
         gl.setSwapInterval(1);
 
-//        float light_ambient[] = {1.9f, 1.9f, 1.9f, 1.0f};
-////        float light_ambient[] = {0.9f, 0.9f, 0.9f, 0.0f};
-//
-//        float light_diffuse[] = {1.3f, 1.3f, 1.3f, 1.0f};
-////
-//        float light_specular[] = {1.0f, 1.0f, 1.5f, 1.5f};
-////        float light_position[] = {1f, 5f, -2f, 1.0f};
-//
-//        float light_position[] = {1f, 5f, -2f, 1.0f};
-//        float light_ambient[] = {0.9f, 0.9f, 0.9f, 1.0f};
-//        float light_diffuse[] = {0.3f, 0.3f, 0.3f, 1.0f};
-//        float light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
-//        float light_position[] = {1.0f, 1.5f, 1.0f, 0.0f};
         float light_ambient[] = {0.9f, 0.9f, 0.9f, 1.0f};
         float light_diffuse[] = {0.3f, 0.3f, 0.3f, 1.0f};
         float light_specular[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -105,7 +93,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_DIFFUSE, light_diffuse, 0);
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_SPECULAR, light_specular, 0);
         gl.glLightfv(GL.GL_LIGHT0, GL.GL_POSITION, light_position, 0);
-////
+
         gl.glEnable(GL.GL_LIGHTING);
         gl.glEnable(GL.GL_LIGHT0);
         gl.glEnable(GL.GL_DEPTH_TEST);
@@ -117,7 +105,6 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         drawable.addMouseMotionListener(this);
         drawable.addKeyListener(this);
     }
-    float avanza = 0;
 
     public void display(GLAutoDrawable drawable) {
         GL gl = drawable.getGL();
@@ -160,15 +147,15 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         alan.posX = -2.0f; //LADOS
         alan.posY = -1.5f; //ARRIBA, ABAJO
         alan.posZ = 1.0f; // CERA, LEJOS
-        alan.dibujaPersonaje(gl, false, false);
+        alan.dibujaPersonaje(gl, keys['W'], keys['J']);
 
         Cafe cafe = new Cafe();
         gl.glTranslatef(0, -0.8f, 0.8f);
-        cafe.draw_stan(gl, false, false);
+        cafe.draw_stan(gl, keys['W'], keys['J']);
 
         DrawMonito drawMonito = new DrawMonito();
         gl.glTranslatef(1.8f, 0, 0.0f);
-        drawMonito.draw_stan(gl, false, false);
+        drawMonito.draw_stan(gl, keys['W'], keys['J']);
         gl.glFlush();
     }
 
@@ -231,18 +218,14 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == 87 || e.getKeyCode() == 119) {
-            if (avanzaB) {
-                avanzaB = false;
-            } else {
-                avanzaB = true;
-            }
-            repAudio("prev");
-        } else if (e.getKeyCode() == 72 || e.getKeyCode() == 104) {
-            brinca = true;
-
-            repAudio("prev");
+        if (e.getKeyCode() < 250 && keys[e.getKeyCode()] == false) {
+            keys['W'] = false;
+            keys['J'] = false;
+            keys[e.getKeyCode()] = true;
+        } else {
+            keys[e.getKeyCode()] = false;
         }
+        System.out.println("key press " + e.getKeyChar());
     }
 
     public void keyReleased(KeyEvent e) {
