@@ -23,6 +23,8 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 import cargaObj.*;
+import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureIO;
 
 /**
  *
@@ -39,8 +41,8 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
 
     //position of stan in the window
     private static final float X_POSITION = 0f;
-    private static final float Y_POSITION = -0.08f;
-    private static final float Z_POSITION = 0f;
+    private static final float Y_POSITION = 0f;
+    private static final float Z_POSITION = -2f;
 
     public static void main(String[] args) {
         Frame frame = new Frame("Alan : Stan (Press J to jump and press W to walk)");
@@ -118,11 +120,13 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
         gl.glMatrixMode(GL.GL_MODELVIEW);
         // Reset the current matrix to the "identity"
         gl.glLoadIdentity();
-        glu.gluLookAt(0.1f, 0.0f, 4.0f,// eye
-                0.0f, 0.0f, 0.0f, // looking at
-                0.0f, 0.0f, 1.0f // is up
-        );
+//        glu.gluLookAt(0.1f, 0.0f, 4.0f,// eye
+//                0.0f, 0.0f, 0.0f, // looking at
+//                0.0f, 0.0f, 1.0f // is up
+//        );
+        glu.gluLookAt(0.1f, 0.0f, 4.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
         // Move the whole scene
+
         gl.glTranslatef(X_POSITION, Y_POSITION, Z_POSITION);
         gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);
         gl.glRotatef(view_roty, 0.0f, 1.0f, 0.0f);
@@ -130,12 +134,32 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
         //we draw Stan in the window
 //        Notepad note = new Notepad();
 //        note.draw_stan(gl, keys['W'], keys['J']);
+        try {
+            Texture tex = TextureIO.newTexture(new File("fondoP.jpg"), true);
+            tex.enable();
+            tex.bind();
+            gl.glTexEnvi(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_REPLACE);
+
+            gl.glBegin(GL.GL_QUADS);
+            gl.glTexCoord2f(0f, 1f);
+            gl.glVertex3f(-5f, -3.5f, -1f);
+            gl.glTexCoord2f(1f, 1f);
+            gl.glVertex3f(5f, -3.5f, -1f);
+            gl.glTexCoord2f(1f, 0f);
+            gl.glVertex3f(5f, 3.5f, -1f);
+            gl.glTexCoord2f(0f, 0f);
+            gl.glVertex3f(-5f, 3.5f, -1f);
+            gl.glEnd();
+            tex.disable();
+        } catch (Exception e) {
+
+        }
 
         DibujaPersonaje p = new DibujaPersonaje();
+        p.posZ = 0.5f;
+        p.posY = -1.5f;
+        p.posX = 0.5f;
         p.dibujaPersonaje(gl, keys['W'], keys['J']);
-        
-
-      
 
 // Flush all drawing operations to the graphics card
         gl.glFlush();
