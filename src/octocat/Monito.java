@@ -180,7 +180,7 @@ public class Monito extends JFrame implements GLEventListener,
         }
         //we draw Stan in the window
         DrawMonito stan = new DrawMonito();
-        stan.draw_stan(gl, keys['W'], keys['J']);
+        stan.draw_stan(gl, keys['W'], keys['J'], keys['A']);
         // Flush all drawing operations to the graphics card
         gl.glFlush();
     }

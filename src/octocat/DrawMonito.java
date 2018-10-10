@@ -46,7 +46,7 @@ public class DrawMonito {
     public DrawMonito() {
     }
 
-    public void draw_stan(GL gl, boolean walk, boolean jump) {
+    public void draw_stan(GL gl, boolean walk, boolean jump, boolean walkAlone) {
 
         GLU glu = new GLU();
         q = glu.gluNewQuadric();
@@ -66,6 +66,20 @@ public class DrawMonito {
             draw_legs(gl, glu, ' ', false);
             draw_legs(gl, glu, 'W', true);
             draw_arm_left(gl, glu, 'W');
+            draw_arm_right(gl, glu, ' ');
+            draw_head (gl, glu, false);
+        }
+        if(walkAlone && mvt%20+10>20){
+            draw_legs(gl, glu, 'A', false);
+            draw_legs(gl, glu, ' ', true);
+            draw_arm_left(gl, glu, ' ');
+            draw_arm_right(gl, glu, 'A');
+            draw_head (gl, glu, false);
+        }
+        else if(walkAlone && mvt%20+10<=20){
+            draw_legs(gl, glu, ' ', false);
+            draw_legs(gl, glu, 'A', true);
+            draw_arm_left(gl, glu, 'A');
             draw_arm_right(gl, glu, ' ');
             draw_head (gl, glu, false);
         }
@@ -209,6 +223,10 @@ public class DrawMonito {
             gl.glTranslatef(0f, -0.1f, -0.2f);
             gl.glRotatef(30, -100f, 0f, 0f);
         }
+        if (c == 'A') {
+            gl.glTranslatef(0f, -0.1f, -0.2f);
+            gl.glRotatef(30, -100f, 0f, 0f);
+        }
         if (c == 'J') {
             gl.glTranslatef(0f, -0.05f, -0.1f);
             if (left) {
@@ -280,6 +298,12 @@ public class DrawMonito {
             gl.glTranslatef(0.05f, 0.015f, 0.05f);
             glu.gluSphere(q, WIDTH_FINGERS, SLICES, STACKS);
         }
+        if (c == 'A') {
+            gl.glTranslatef(-0.45f, -0.38f, 0.1f);
+            glu.gluSphere(q, WIDTH_HANDS, SLICES, STACKS);
+            gl.glTranslatef(0.05f, 0.015f, 0.05f);
+            glu.gluSphere(q, WIDTH_FINGERS, SLICES, STACKS);
+        }
         if (c == ' ') {
             gl.glTranslatef(-0.45f, -0.42f, 0f);
             glu.gluSphere(q, WIDTH_HANDS, SLICES, STACKS);
@@ -297,6 +321,14 @@ public class DrawMonito {
             gl.glRotatef(150, 0f, -100f, 0f);
         }
         if (c == 'W') {
+            gl.glRotatef(20, -1f, 0f, 0f);
+        }
+        glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
+        glu.gluSphere(q, WIDTH_ARMS, SLICES, STACKS);
+        gl.glRotatef(90f, -1f, 0.20f, 0f);
+        gl.glTranslatef(0f, -HEIGHT_ARMS, 0f);
+        gl.glRotatef(90f, 1f, -0.20f, 0f);
+        if (c == 'A') {
             gl.glRotatef(20, -1f, 0f, 0f);
         }
         glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
@@ -326,6 +358,12 @@ public class DrawMonito {
             gl.glTranslatef(-0.05f, 0.015f, 0.05f);
             glu.gluSphere(q, WIDTH_FINGERS, SLICES, STACKS);
         }
+        if (c == 'A') {
+            gl.glTranslatef(0.45f, -0.38f, 0.1f);
+            glu.gluSphere(q, WIDTH_HANDS, SLICES, STACKS);
+            gl.glTranslatef(-0.05f, 0.015f, 0.05f);
+            glu.gluSphere(q, WIDTH_FINGERS, SLICES, STACKS);
+        }
         if (c == ' ') {
             gl.glTranslatef(0.45f, -0.42f, 0f);
             glu.gluSphere(q, WIDTH_HANDS, SLICES, STACKS);
@@ -342,6 +380,14 @@ public class DrawMonito {
             gl.glRotatef(150, 0f, 100f, 0f);
         }
         if (c == 'W') {
+            gl.glRotatef(20, -1f, 0f, 0f);
+        }
+        glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
+        glu.gluSphere(q, WIDTH_ARMS, SLICES, STACKS);
+        gl.glRotatef(90f, -1f, -0.20f, 0f);
+        gl.glTranslatef(0f, -HEIGHT_ARMS, 0f);
+        gl.glRotatef(90f, 1f, 0.20f, 0f);
+        if (c == 'A') {
             gl.glRotatef(20, -1f, 0f, 0f);
         }
         glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
