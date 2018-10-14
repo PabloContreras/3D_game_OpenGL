@@ -8,7 +8,6 @@ package tresPersonajes;
 import cafe.Cafe;
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.texture.Texture;
-import com.sun.opengl.util.texture.TextureCoords;
 import com.sun.opengl.util.texture.TextureIO;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -51,11 +50,13 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
     boolean avanzaB = false;
     boolean brinca = false;
     boolean walkAlone = false;
-    
+
     boolean[] keys = new boolean[256];
     private static final float X_POSITION = 0f;
     private static final float Y_POSITION = 0f;
     private static final float Z_POSITION = 0f;
+
+    DibujaPersonaje alan = new DibujaPersonaje();
 
     public static void main(String[] args) {
         Frame frame = new Frame("Personajes");
@@ -145,19 +146,19 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
 
         }
 
-        DibujaPersonaje alan = new DibujaPersonaje();
-        alan.posX = -2.0f; //LADOS
-        alan.posY = -1.5f; //ARRIBA, ABAJO
-        alan.posZ = 1.0f; // CERA, LEJOS
-        alan.dibujaPersonaje(gl, keys['W'], keys['J']);
+        gl.glPushMatrix();
+        gl.glTranslated(-2.0, -1.5, 1.0);
+        alan.dibujaPersonaje(gl, keys['W'] || keys['M'], keys['J'] || keys['K'], keys['V']);
+        gl.glPopMatrix();
 
         Cafe cafe = new Cafe();
         gl.glTranslatef(0, -0.8f, 0.8f);
-        cafe.draw_stan(gl, keys['W'], keys['J'],keys['Q']);
+        cafe.draw_stan(gl, keys['W'], keys['J'], keys['Q']);
 
         DrawMonito drawMonito = new DrawMonito();
         gl.glTranslatef(1.8f, 0, 0.0f);
         drawMonito.draw_stan(gl, keys['W'], keys['J'], keys['A']);
+
         gl.glFlush();
     }
 
@@ -225,6 +226,8 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
             keys['J'] = false;
             keys['Q'] = false;
             keys['A'] = false;
+            keys['K'] = false;
+            keys['M'] = false;
             keys[e.getKeyCode()] = true;
         } else {
             keys[e.getKeyCode()] = false;
@@ -242,9 +245,9 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         }
         if (e.getKeyCode() == 81 || e.getKeyCode() == 113) {
             walkAlone = false;
-            
+
         }
-        
+
     }
 
     public void mouseClicked(MouseEvent e) {

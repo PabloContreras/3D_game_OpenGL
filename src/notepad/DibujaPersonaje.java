@@ -104,8 +104,15 @@ public class DibujaPersonaje {
 
     public DibujaPersonaje() {
     }
+    boolean arriba = true;
+    float alto = 0.0f;
+    Thread t;
+    boolean pataI;
+    boolean x = false;
+    boolean volar = true;
 
-    public void dibujaPersonaje(GL gl, boolean walk, boolean jump) {
+    public void dibujaPersonaje(GL gl, boolean walk, boolean jump, boolean vuela) {
+
         GLU glu = new GLU();
         qu = glu.gluNewQuadric();
         glu.gluQuadricDrawStyle(qu, GLU.GLU_FILL);
@@ -115,26 +122,103 @@ public class DibujaPersonaje {
 //        dibujaOjos(gl, glu);
 //        dibujaCuerpo(gl, glu);
 //        dibujaCla(gl, glu);
-
-        gl.glPushMatrix();
-
         try {
-            dibujaPataIz(m, gl, ' ',false);
-            dibujaPataDe(m, gl, ' ',false);
-            dibujaManoDe(m, gl);
-            dibujaManoIz(m, gl);
+            if (jump) {
+                if (arriba && alto <= 1) {
+                    alto += 0.2f;
+                    if (alto >= 1) {
+                        arriba = false;
+                    }
+                } else if ((!arriba) && alto != 0) {
+                    alto -= 0.2f;
+                    if (alto == 0 || alto < 0) {
+                        arriba = true;
+                    }
+                }
+
+                gl.glTranslatef(0, alto, 0);
+                dibujaPataIz(m, gl);
+                dibujaPataDe(m, gl);
+            } else if (walk) {
+                if (pataI) {
+                    gl.glPushMatrix();
+                    gl.glTranslatef(0f, 0.1f, 0.2f);
+                    gl.glRotatef(30, -100f, 0f, 0f);
+                    dibujaPataIz(m, gl);
+                    gl.glPopMatrix();
+                    pataI = !pataI;
+                    if (x) {
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0f, -0.1f, -0.2f);
+                        gl.glRotatef(-30, -100f, 0f, 0f);
+                        dibujaPataDe(m, gl);
+                        gl.glPopMatrix();
+                    } else {
+                        gl.glPushMatrix();
+                        gl.glTranslatef(0f, 0.1f, 0.2f);
+                        gl.glRotatef(30, -100f, 0f, 0f);
+                        dibujaPataDe(m, gl);
+                        gl.glPopMatrix();
+                    }
+                } else {
+                    gl.glPushMatrix();
+                    gl.glTranslatef(0f, -0.1f, -0.2f);
+                    gl.glRotatef(-30, -100f, 0f, 0f);
+                    dibujaPataIz(m, gl);
+                    gl.glPopMatrix();
+
+                    gl.glPushMatrix();
+                    gl.glTranslatef(0f, 0.1f, 0.2f);
+                    gl.glRotatef(30, -100f, 0f, 0f);
+                    dibujaPataDe(m, gl);
+                    gl.glPopMatrix();
+                    pataI = !pataI;
+                    x = true;
+                }
+            } else {
+                alto = 0;
+                arriba = true;
+                dibujaPataIz(m, gl);
+                dibujaPataDe(m, gl);
+            }
+
+            gl.glPushMatrix();
+
+            if (vuela) {
+                if (volar) {
+                    gl.glPushMatrix();
+                    gl.glRotatef(90, 0, 0, 1f);
+                    gl.glTranslated(0.25, -1.33, 0);
+                    dibujaManoDe(m, gl);
+                    gl.glPopMatrix();
+
+                    gl.glPushMatrix();
+                    gl.glRotatef(-90, 0, 0, 1f);
+                    gl.glTranslated(-0.37, -1.15, 0);
+                    dibujaManoIz(m, gl);
+                    gl.glPopMatrix();
+                    volar = !volar;
+                } else {
+                    dibujaManoDe(m, gl);
+                    dibujaManoIz(m, gl);
+                    volar = !volar;
+                }
+            } else {
+                dibujaManoDe(m, gl);
+                dibujaManoIz(m, gl);
+            }
+
             dibujaPico(m, gl);
             dibujaOjos(m, gl);
             dibujaCuerpo(m, gl);
             dibujaCirculo(m, gl);
-
-        } catch (IOException ex) {
-
+            gl.glPopMatrix();
+            Thread.sleep(150);
+        } catch (Exception e) {
         }
-        gl.glPopMatrix();
-        mvt++;
 
     }
+
     public void dibujaManoIz(Model m, GL gl) throws IOException {
         //Manos
         m = cargaObj.OBJLoader.loadModel(new File(rta + "aleta_iz.obj"));
@@ -143,6 +227,7 @@ public class DibujaPersonaje {
         dibuja(m, gl);
 
     }
+
     public void dibujaManoDe(Model m, GL gl) throws IOException {
         //Manos
         m = cargaObj.OBJLoader.loadModel(new File(rta + "aleta_de.obj"));
@@ -151,7 +236,6 @@ public class DibujaPersonaje {
         dibuja(m, gl);
 
     }
-    
 
     public void dibujaPico(Model m, GL gl) throws IOException {
         m = cargaObj.OBJLoader.loadModel(new File(rta + "pico.obj"));
@@ -184,18 +268,20 @@ public class DibujaPersonaje {
         dibuja(m, gl);
     }
 
-    public void dibujaPataDe(Model m, GL gl, char c, boolean left) throws IOException {
+    public void dibujaPataDe(Model m, GL gl) throws IOException {
         //Patas
         m = cargaObj.OBJLoader.loadModel(new File(rta + "pata_de.obj"));
         set_material(gl, color(255), color(220), color(77));
         dibuja(m, gl);
     }
 
-    public void dibujaPataIz(Model m, GL gl, char c, boolean left) throws IOException {
+    public void dibujaPataIz(Model m, GL gl) throws IOException {
         //Patas
+
         m = cargaObj.OBJLoader.loadModel(new File(rta + "pata_iz.obj"));
         set_material(gl, color(255), color(220), color(77));
         dibuja(m, gl);
+
     }
 
     public void dibuja(Model m, GL gl) {
