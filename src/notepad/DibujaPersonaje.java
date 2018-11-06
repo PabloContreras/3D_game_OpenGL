@@ -27,89 +27,17 @@ public class DibujaPersonaje {
     public float posX = 0;
     public float posY = 0;
     public float posZ = 0;
-
-    private static int mvt = 0;
-    private static final float posOjo1[] = {c(2.5f), c(8), 0};
-    private static final float posOjo2[] = {c(10f), c(10f), c(-1.5)};
-    private static final float radioOjos[] = {c(5), c(4f), c(1), c(0.8f)};
-    double matC[][] = {
-        {-9.0, 0, 0},
-        {-8.0, 5, 0},
-        {-7.0, 7, 0},
-        {-6.0, 9, 0},
-        {-5.0, 9.5, 0},
-        {-4.0, 10, 0},
-        {-3.0, 10.2, 0},
-        {-2.0, 9.7, 0},
-        {-1.0, 9, 0},
-        {0, 8, 0},
-        {1, 6, 0},
-        {2, 6, 0},
-        {3, 6, 0},
-        {4, 6, 0},
-        {5, 6, 0},
-        {6, 5.5, 0},
-        {7, 5, 0},
-        {8, 4.6, 0},
-        {9, 2, 0},
-        {8, 1, 0},
-        {7, 0, 0},
-        {6, -0.2, 0},
-        {5, -0.2, 0},
-        {4, 0, 0},
-        {3, 0.2, 0},
-        {2, -1, 0},
-        {1, -0.8, 0},
-        {0, -0.52, 0},
-        {-1, -1, 0},
-        {-2, -0.6, 0},
-        {-3, -0.2, 0},
-        {-4, 0.2, 0},
-        {-5, 0, 0},
-        {-6, 0.8, 0},
-        {-7, 0.8, 0},
-        {-8, 0.8, 0},
-        {-9, 0.8, 0}
-    };
-    public double[][] c = {
-        {-8, 0, 0},
-        {-8.5, .5, 0},
-        {-9, -1, 0},
-        {-8.5, -5, 0},
-        {-8, -9, 0},
-        {-7.5, -9.5, 0},
-        {-7, -10.5, 0},
-        {-6.5, -11.5, 0},
-        {-6, -12.5, 0},
-        {-5.5, -13, 0},
-        {-5, -13.5, 0},
-        {-4.5, -13.5, 0},
-        {-4, -13.5, 0},
-        {-3, -13.5, 0},
-        {-2, -13, 0},
-        {-1.5, -12.5, 0},
-        {-1, -12, 0},
-        {-0.8, -9, 0},
-        {-0.5, -8, 0},
-        {-1, -8, 0},
-        {-2, -7, 0},
-        {-3, -6.5, 0},
-        {-4, -8, 0},
-        {-5, -9, 0},
-        {-4, -10, 0},
-        {-3, -9, 0}
-    };
-
-    private GLUquadric qu;
-
-    public DibujaPersonaje() {
-    }
     boolean arriba = true;
     float alto = 0.0f;
     Thread t;
     boolean pataI;
     boolean x = false;
     boolean volar = true;
+
+    private GLUquadric qu;
+
+    public DibujaPersonaje() {
+    }
 
     public void dibujaPersonaje(GL gl, boolean walk, boolean jump, boolean vuela) {
 
@@ -119,9 +47,6 @@ public class DibujaPersonaje {
         glu.gluQuadricOrientation(qu, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(qu, GLU.GLU_SMOOTH);
         Model m = null;
-//        dibujaOjos(gl, glu);
-//        dibujaCuerpo(gl, glu);
-//        dibujaCla(gl, glu);
         try {
             if (jump) {
                 if (arriba && alto <= 1) {
@@ -304,14 +229,6 @@ public class DibujaPersonaje {
         }
         gl.glEnd();
     }
-
-    public double[][] pata = {
-        {6.3, 0.5, 0},
-        {6, -1, 0},
-        {5.82, -2, 0},
-        {5.7, 0, 0},
-        {6, 0, 0}
-    };
 
     public void set_eyes_material(GL gl) {
         float mat_ambient[] = {color(149), color(149), color(149)};

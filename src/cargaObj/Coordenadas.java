@@ -15,7 +15,7 @@ import java.io.IOException;
 public class Coordenadas {
 
     public static void main(String[] args) throws IOException {
-         Model m = OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\personaje\\manos.obj"));
+         Model m = OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\obj\\untitled.obj"));
          coordenadas(m);
     }
 

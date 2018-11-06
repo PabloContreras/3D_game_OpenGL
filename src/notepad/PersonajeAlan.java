@@ -25,6 +25,7 @@ import javax.swing.JFrame;
 import cargaObj.*;
 import com.sun.opengl.util.texture.Texture;
 import com.sun.opengl.util.texture.TextureIO;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,7 +35,7 @@ import java.util.logging.Logger;
  */
 public class PersonajeAlan extends JFrame implements GLEventListener,
         KeyListener, MouseListener, MouseMotionListener {
-
+    
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
     private int oldMouseX;
@@ -45,7 +46,7 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
     private static final float X_POSITION = 0f;
     private static final float Y_POSITION = 0f;
     private static final float Z_POSITION = -2f;
-
+    
     public static void main(String[] args) {
         Frame frame = new Frame("Alan : Stan (Press J to jump and press W to walk)");
         GLCanvas canvas = new GLCanvas();
@@ -64,15 +65,15 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
                 }).start();
             }
         });
-
+        
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         animator.start();
-
+        
     }
-
+    
     public void init(GLAutoDrawable drawable) {
-
+        
         GL gl = drawable.getGL();
         System.err.println("INIT GL IS: " + gl.getClass().getName());
         gl.setSwapInterval(1);
@@ -95,9 +96,9 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
         drawable.addMouseMotionListener(this);
         drawable.addKeyListener(this);
     }
-
+    
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-
+        
         GL gl = drawable.getGL();
         GLU glu = new GLU();
         if (height <= 0) { // avoid a divide by zero error!
@@ -110,30 +111,31 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
         glu.gluPerspective(45.0f, h, 1.0, 20.0);
         gl.glMatrixMode(GL.GL_MODELVIEW);
         gl.glLoadIdentity();
-
+        
     }
-
+    
     public void display(GLAutoDrawable drawable) {
-
-        GL gl = drawable.getGL();
-        GLU glu = new GLU();
-        // Clear the drawing area
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        gl.glMatrixMode(GL.GL_MODELVIEW);
-        // Reset the current matrix to the "identity"
-        gl.glLoadIdentity();
+        
+        try {
+            GL gl = drawable.getGL();
+            GLU glu = new GLU();
+            // Clear the drawing area
+            gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+            gl.glMatrixMode(GL.GL_MODELVIEW);
+            // Reset the current matrix to the "identity"
+            gl.glLoadIdentity();
 //        glu.gluLookAt(0.1f, 0.0f, 4.0f,// eye
 //                0.0f, 0.0f, 0.0f, // looking at
 //                0.0f, 0.0f, 1.0f // is up
 //        );
-        glu.gluLookAt(0.1f, 0.0f, 4.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
-        // Move the whole scene
+            glu.gluLookAt(0.1f, 0.0f, 4.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+// Move the whole scene
 
-        gl.glTranslatef(X_POSITION, Y_POSITION, Z_POSITION);
-        gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);
-        gl.glRotatef(view_roty, 0.0f, 1.0f, 0.0f);
-        gl.glRotatef(90, 0.0f, 0.0f, 1.0f);
-        //we draw Stan in the window
+            gl.glTranslatef(X_POSITION, Y_POSITION, Z_POSITION);
+            gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);
+            gl.glRotatef(view_roty, 0.0f, 1.0f, 0.0f);
+            gl.glRotatef(90, 0.0f, 0.0f, 1.0f);
+//we draw Stan in the window
 //        Notepad note = new Notepad();
 //        note.draw_stan(gl, keys['W'], keys['J']);
 //        try {
@@ -157,38 +159,50 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
 //
 //        }
 
-        gl.glBegin(GL.GL_LINES);
-        set_material(gl, 1, 0, 0);
-        gl.glVertex3d(-10, 0, 0);
-        gl.glVertex3d(10, 0, 0);
+            gl.glBegin(GL.GL_LINES);
+            set_material(gl, 1, 0, 0);
+            gl.glVertex3d(-10, 0, 0);
+            gl.glVertex3d(10, 0, 0);
+            
+            set_material(gl, 0, 1, 0);
+            gl.glVertex3d(0, -10, 0);
+            gl.glVertex3d(0, 10, 0);
+            
+            set_material(gl, 0, 0, 1);
+            gl.glVertex3d(0, 0, -10);
+            gl.glVertex3d(0, 0, 10);
+            
+            gl.glEnd();
+            
+            p.posX = 0;
+            p.posY = 0;
+            p.posZ = 0;
+//        p.dibujaPersonaje(gl, keys['W'], keys['J'], keys['V']);
+            
 
-        set_material(gl, 0, 1, 0);
-        gl.glVertex3d(0, -10, 0);
-        gl.glVertex3d(0, 10, 0);
-
-        set_material(gl, 0, 0, 1);
-        gl.glVertex3d(0, 0, -10);
-        gl.glVertex3d(0, 0, 10);
-
-        gl.glEnd();
-
-        p.posX = 0;
-        p.posY = 0;
-        p.posZ = 0;
-        p.dibujaPersonaje(gl, keys['W'], keys['J'], keys['V']);
+            gl.glTranslated(0, 0,0);
+            Model m = OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\obj\\untitled.obj"));
+            set_material(gl, color(7), color(111), color(10));
+            dibuja(m, gl);
+            set_material(gl, color(111), color(59), color(7));
+            m = OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\obj\\tronco.obj"));
+            dibuja(m, gl);
 
 // Flush all drawing operations to the graphics card
-        gl.glFlush();
-        
+            gl.glFlush();
+
 //        try {
 //            Thread.sleep(5);
 //        } catch (InterruptedException ex) {
 //            Logger.getLogger(PersonajeAlan.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-
+        } catch (IOException ex) {
+            Logger.getLogger(PersonajeAlan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     DibujaPersonaje p = new DibujaPersonaje();
-
+    
     public void dibuja(Model m, GL gl) {
         gl.glBegin(GL.GL_TRIANGLES);
         for (Face face : m.faces) {
@@ -196,12 +210,12 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
             gl.glNormal3f(n1.x, n1.y, n1.z);
             Vector3f v1 = m.verts.get((int) face.verts.getX() - 1);
             gl.glVertex3f(v1.x, v1.y, v1.z);
-
+            
             Vector3f n2 = m.norms.get((int) face.norms.getY() - 1);
             gl.glNormal3f(n2.x, n2.y, n2.z);
             Vector3f v2 = m.verts.get((int) face.verts.getY() - 1);
             gl.glVertex3f(v2.x, v2.y, v2.z);
-
+            
             Vector3f n3 = m.norms.get((int) face.norms.getZ() - 1);
             gl.glNormal3f(n3.x, n3.y, n3.z);
             Vector3f v3 = m.verts.get((int) face.verts.getZ() - 1);
@@ -209,40 +223,40 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
         }
         gl.glEnd();
     }
-
+    
     public static float c(float c) {
         return (c / 1);
     }
-
+    
     public void displayChanged(GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
     }
-
+    
     public void mouseClicked(MouseEvent e) {
     }
-
+    
     public void mouseEntered(MouseEvent e) {
     }
-
+    
     public void mouseExited(MouseEvent e) {
     }
-
+    
     public void mouseReleased(MouseEvent e) {
     }
-
+    
     public void mouseMoved(MouseEvent e) {
     }
-
+    
     public void keyTyped(KeyEvent e) {
     }
-
+    
     public void keyReleased(KeyEvent e) {
     }
-
+    
     public void mousePressed(MouseEvent e) {
         oldMouseX = e.getX();
         oldMouseY = e.getY();
     }
-
+    
     public void mouseDragged(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
@@ -254,7 +268,7 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
         view_rotx += thetaX;
         view_roty += thetaY;
     }
-
+    
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() < 250 && keys[e.getKeyCode()] == false) {
             keys['W'] = false;
@@ -265,7 +279,7 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
         }
         System.out.println("key press " + e.getKeyChar());
     }
-
+    
     public void set_material(GL gl, float r, float g, float b) {
         float mat_ambient[] = {r, g, b};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -276,7 +290,7 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
         gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_SPECULAR, mat_specular, 0);
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
-
+    
     public float color(int c) {
         return (float) ((float) c / (float) 255);
     }
