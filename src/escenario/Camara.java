@@ -34,6 +34,8 @@ public class Camara {
         u[2] = uz;
 
     }
+    
+    
 
     public void setPosE(float ex, float ey, float ez) {
         e[0] = ex;

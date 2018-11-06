@@ -181,12 +181,13 @@ public class PersonajeAlan extends JFrame implements GLEventListener,
             
 
             gl.glTranslated(0, 0,0);
-            Model m = OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\obj\\untitled.obj"));
+            Model m = OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\obj\\hojas.obj"));
             set_material(gl, color(7), color(111), color(10));
             dibuja(m, gl);
-            set_material(gl, color(111), color(59), color(7));
-            m = OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\obj\\tronco.obj"));
+             m = OBJLoader.loadModel(new File("C:\\Users\\Alan\\Desktop\\obj\\tronco.obj"));
+            set_material(gl, color(255), color(111), color(10));
             dibuja(m, gl);
+            
 
 // Flush all drawing operations to the graphics card
             gl.glFlush();
