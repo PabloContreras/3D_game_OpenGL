@@ -10,6 +10,7 @@ import cargaObj.Model;
 import cargaObj.OBJLoader;
 import cargaObj.Vector3f;
 import com.sun.opengl.util.Animator;
+import com.sun.opengl.util.GLUT;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
@@ -41,19 +42,13 @@ public class Escenario extends JFrame implements GLEventListener,
     private float[] c = {0.0f, 0.0f, 0.0f};
     private float[] u = {0.0f, 0.0f, 3.0f};
     private static Camara cam;
-
+    private double angle = 0;
+    float tranz = 0;
+    int i = 0;
+    boolean pinos = true;
     GL gl;
 
-    private float view_rotx = 0.01f;
-    private float view_roty = 0.01f;
-    private int oldMouseX;
-    private int oldMouseY;
-    boolean[] keys = new boolean[256]; //to know which key is pressed
-
-    //position of stan in the window
-    private static final float X_POSITION = 0f;
-    private static final float Y_POSITION = 0f;
-    private static final float Z_POSITION = -2f;
+    boolean[] keys = new boolean[256];
 
     public static void main(String[] args) {
         Frame frame = new Frame("Escenario");
@@ -62,6 +57,7 @@ public class Escenario extends JFrame implements GLEventListener,
         frame.add(canvas);
         frame.setSize(1200, 720);
         final Animator animator = new Animator(canvas);
+
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -108,7 +104,6 @@ public class Escenario extends JFrame implements GLEventListener,
             drawable.addMouseListener(this);
             drawable.addMouseMotionListener(this);
             drawable.addKeyListener(this);
-
             pino1 = OBJLoader.loadModel(new File("personajes\\pino\\pinoa.obj"));
             pino2 = OBJLoader.loadModel(new File("personajes\\pino\\tronco.obj"));
             arbol1 = OBJLoader.loadModel(new File("personajes\\arbol\\hojas.obj"));
@@ -138,32 +133,35 @@ public class Escenario extends JFrame implements GLEventListener,
 
     public void display(GLAutoDrawable drawable) {
 
-        gl = drawable.getGL();
+        try {
+            gl = drawable.getGL();
+            GLUT glut = new GLUT();
+            // Clear the drawing area
+            gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+            gl.glMatrixMode(GL.GL_MODELVIEW);
+            // Reset the current matrix to the "identity"
+            gl.glLoadIdentity();
 
-        // Clear the drawing area
-        gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
-        gl.glMatrixMode(GL.GL_MODELVIEW);
-        // Reset the current matrix to the "identity"
-        gl.glLoadIdentity();
+            cam = new Camara(e[0], e[1], e[2], c[0], c[1], c[2], u[0], u[1], u[2], glu);
+            Guias.ejes(gl);
 
-        cam = new Camara(e[0], e[1], e[2], c[0], c[1], c[2], u[0], u[1], u[2], glu);
-//        gl.glTranslatef(X_POSITION, Y_POSITION, Z_POSITION);
-//        gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);
-//        gl.glRotatef(view_roty, 0.0f, 1.0f, 0.0f);
-        gl.glRotated(angle, 0.0, 1.0, 0.0);
-//        gl.glRotatef(90, 0.0f, 0.0f, 1.0f);
+            Terreno.genArboles(pinos, gl);
+            pinos = false;
+            Terreno.genPiso(gl);
+            Terreno.genCielo(gl, tranz);
 
-        // Move the whole scene
-        Guias.ejes(gl);
-        Terreno.genArboles(pinos, gl);
-        pinos = false;
-        Terreno.genPiso(gl);
-        gl.glFlush();
+            Terreno.dibujaSol(glut, gl, tranz);
+
+            Thread.sleep(16);
+
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Escenario.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
-    int i = 0;
-    boolean pinos = true;
+
+
 
     public static void dibujaPino(GL gl, double tx, double ty, double tz) {
 
@@ -237,17 +235,11 @@ public class Escenario extends JFrame implements GLEventListener,
 
     }
 
-    double angle = 0;
-
     public void mouseMoved(MouseEvent e) {
     }
 
     public void keyTyped(KeyEvent e) {
-        if (e.getKeyChar() == 'j') {
-            angle -= 0.5;
-        } else if (e.getKeyChar() == 'l') {
-            angle += 0.5;
-        }
+
     }
 
     public void keyReleased(KeyEvent e) {
@@ -266,23 +258,31 @@ public class Escenario extends JFrame implements GLEventListener,
             pinos = true;
             i = 0;
         }
-        if (e.getKeyChar() == 'w') {
-            this.e[2] += 0.2;
-            this.c[2] += 0.2;
-            i++;
-        } else if (e.getKeyChar() == 's') {
-            this.e[2] -= 0.2;
-            this.c[2] -= 0.2;
-            i++;
-        } else if (e.getKeyChar() == 'a') {
-            this.e[0] += 0.2;
-            this.c[0] += 0.2;
-        } else if (e.getKeyChar() == 'd') {
-            this.e[0] -= 0.2;
-            this.c[0] -= 0.2;
+        switch (e.getKeyChar()) {
+            case 'w':
+                this.e[2] += 0.2;
+                this.c[2] += 0.2;
+                i++;
+                tranz += 0.2;
+                break;
+            case 's':
+                this.e[2] -= 0.2;
+                this.c[2] -= 0.2;
+                i++;
+                break;
+            case 'a':
+                this.e[0] += 0.2;
+                this.c[0] += 0.2;
+                i++;
+                break;
+            case 'd':
+                this.e[0] -= 0.2;
+                this.c[0] -= 0.2;
+                i++;
+                break;
+            default:
+                break;
         }
-        
-
     }
 
     public static float color(int c) {
