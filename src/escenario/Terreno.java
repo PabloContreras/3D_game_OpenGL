@@ -6,13 +6,22 @@
 package escenario;
 
 import com.sun.opengl.util.GLUT;
+import com.sun.opengl.util.texture.Texture;
+import com.sun.opengl.util.texture.TextureIO;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.media.opengl.GL;
+import javax.media.opengl.GLException;
 
 public class Terreno {
 
     private static float[][] vertexArboles = new float[100][2];
     private static int[] rand = new int[vertexArboles.length];
+
+    static Texture tex;
 
     public static void genCielo(GL gl, float translateZ) {
         Guias.set_material(gl, Escenario.color(68), Escenario.color(195), 223);
@@ -29,16 +38,33 @@ public class Terreno {
     }
 
     public static void genPiso(GL gl) {
-        float[] pos = Escenario.getCam().getPosC();
-        Guias.set_material(gl, Escenario.color(161), Escenario.color(164), Escenario.color(165));
-        gl.glPushMatrix();
-        gl.glBegin(GL.GL_QUADS);
-        gl.glVertex3f(pos[0] - 20, 0, pos[2] - 20);
-        gl.glVertex3f(pos[0] + 20, 0, pos[2] - 20);
-        gl.glVertex3f(pos[0] + 20, 0, pos[2] + 20);
-        gl.glVertex3f(pos[0] - 20, 0, pos[2] + 20);
-        gl.glEnd();
-        gl.glPopMatrix();
+        try {
+            tex = TextureIO.newTexture(new File("pasto.jpg"), true);
+            tex.enable();
+            tex.bind();
+            gl.glTexEnvi(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_REPLACE);
+
+            float[] pos = Escenario.getCam().getPosC();
+            //Guias.set_material(gl, Escenario.color(161), Escenario.color(164), Escenario.color(165));
+
+            gl.glPushMatrix();
+            gl.glBegin(GL.GL_QUADS);
+            gl.glTexCoord2f(0f, 1f);
+            gl.glVertex3f(pos[0] - 20, 0, pos[2] - 20);
+            gl.glTexCoord2f(1f, 1f);
+            gl.glVertex3f(pos[0] + 20, 0, pos[2] - 20);
+            gl.glTexCoord2f(1f, 0f);
+            gl.glVertex3f(pos[0] + 20, 0, pos[2] + 20);
+            gl.glTexCoord2f(0f, 0f);
+            gl.glVertex3f(pos[0] - 20, 0, pos[2] + 20);
+            gl.glEnd();
+            tex.disable();
+            gl.glPopMatrix();
+        } catch (IOException ex) {
+            Logger.getLogger(Terreno.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (GLException ex) {
+            Logger.getLogger(Terreno.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public static void genArboles(boolean nvo, GL gl) {
