@@ -37,6 +37,7 @@ public class DibujaPersonaje {
     private GLUquadric qu;
 
     public DibujaPersonaje() {
+
     }
 
     public void dibujaPersonaje(GL gl, boolean walk, boolean jump, boolean vuela) {
@@ -138,7 +139,7 @@ public class DibujaPersonaje {
             dibujaCuerpo(m, gl);
             dibujaCirculo(m, gl);
             gl.glPopMatrix();
-            Thread.sleep(150);
+
         } catch (Exception e) {
         }
 

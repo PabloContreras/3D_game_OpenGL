@@ -130,6 +130,7 @@ public class Escenario extends JFrame implements GLEventListener,
         gl.glLoadIdentity();
 
     }
+    boolean vuela = false;
 
     public void display(GLAutoDrawable drawable) {
 
@@ -145,6 +146,27 @@ public class Escenario extends JFrame implements GLEventListener,
             cam = new Camara(e[0], e[1], e[2], c[0], c[1], c[2], u[0], u[1], u[2], glu);
             Guias.ejes(gl);
 
+            gl.glPushMatrix();
+            gl.glRotated(181, 0, 1.0, 0.0);
+            gl.glTranslated(0, 0, 3);
+            new notepad.DibujaPersonaje().dibujaPersonaje(gl, false, false, !vuela);
+            gl.glPopMatrix();
+
+            
+            
+            
+            gl.glPushMatrix();
+            gl.glRotated(181, 0, 1.0, 0.0);
+            gl.glTranslated(1.8, 0.7, 3.59);
+            new cafe.Cafe().draw_stan(gl, false, false, false);
+            gl.glPopMatrix();
+            
+            gl.glPushMatrix();
+            gl.glRotated(181, 0, 1.0, 0.0);
+            gl.glTranslated(-1.8, 0.7, 3.59);
+            new octocat.DrawMonito().draw_stan(gl, false,false,false);
+            gl.glPopMatrix();
+
             Terreno.genArboles(pinos, gl);
             pinos = false;
             Terreno.genPiso(gl);
@@ -159,9 +181,6 @@ public class Escenario extends JFrame implements GLEventListener,
         }
 
     }
-
-
-
 
     public static void dibujaPino(GL gl, double tx, double ty, double tz) {
 
@@ -279,11 +298,34 @@ public class Escenario extends JFrame implements GLEventListener,
                 this.e[0] -= 0.2;
                 this.c[0] -= 0.2;
                 i++;
+
+            case '7':
+                p_trany += 0.3;
+                break;
+            case '1':
+                p_trany -= 0.3;
+                break;
+            case '9':
+                p_tranx += 0.3;
+                break;
+            case '3':
+                p_tranx -= 0.3;
+                break;
+            case '+':
+                p_tranz += 0.3;
+                break;
+            case '-':
+                p_tranz -= 0.3;
+                break;
+            case 'l':
+                System.out.println("x: " + p_tranx + "\ny: " + p_trany + "\nz: " + p_tranz);
                 break;
             default:
                 break;
         }
     }
+
+    public float p_tranx, p_trany, p_tranz = 0;
 
     public static float color(int c) {
         return (float) ((float) c / (float) 255);
