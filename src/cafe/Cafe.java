@@ -113,42 +113,6 @@ public class Cafe {
 
     }
 
-//    public void draw_body(GL gl, GLU glu) {
-//
-//        //we create stan body
-//        set_shirt_material(gl);
-//        gl.glPushMatrix();
-//        gl.glRotatef(90f, 1f, 0f, 0f);
-//        glu.gluCylinder(q, TOP_BODY, BOTTOM_BODY, HEIGHT_BODY, SLICES, STACKS);
-//        gl.glRotatef(90f, -1f, 0f, 0f);
-//        gl.glTranslatef(0.0f, -HEIGHT_BODY, 0f);
-//        gl.glRotatef(90f, 1f, 0f, 0f);
-//        glu.gluDisk(q, 0f, BOTTOM_BODY, SLICES, STACKS);
-//        gl.glPopMatrix();
-//
-//        //we create sweat zip
-//        set_grey_material(gl);
-//        gl.glPushMatrix();
-//        gl.glTranslatef(0.0f, -0.475f, 0.40f);
-//        gl.glRotatef(-6f, 1.0f, 0f, 0f);
-//        gl.glBegin(GL.GL_LINES);
-//        gl.glNormal3f(-1.0f, 0.0f, 0.0f);
-//        gl.glVertex3f(0.0f, 0.0f, 0.0f);
-//        gl.glVertex3f(0.0f, 0.44f, 0.0f);
-//        gl.glEnd();
-//        gl.glPopMatrix();
-//
-//        //we create sweat buttons
-//        gl.glPushMatrix();
-//        gl.glTranslatef(-0.06f, -0.15f, 0.315f);
-//        glu.gluSphere(q, WIDTH_BUTTONS, SLICES, STACKS);
-//        gl.glTranslatef(0.0f, -SPACE_BETWEEN_BUTTONS, 0.012f);
-//        glu.gluSphere(q, WIDTH_BUTTONS, SLICES, STACKS);
-//        gl.glTranslatef(0.0f, -SPACE_BETWEEN_BUTTONS, 0.013f);
-//        glu.gluSphere(q, WIDTH_BUTTONS, SLICES, STACKS);
-//        gl.glPopMatrix();
-//
-//    }
 
     public void draw_head(GL gl, GLU glu, boolean jump) {
 
@@ -214,37 +178,7 @@ public class Cafe {
         glu.gluSphere(q, WIDTH_PUPILS, SLICES, STACKS);
         gl.glPopMatrix();
     }
-//
-//    public void draw_hat(GL gl, GLU glu) {
-//        //we create bottom of bonnet
-//        gl.glPushMatrix();
-//        gl.glTranslatef(0.0f, 0.58f, -0.01f);
-//        gl.glRotatef(80f, 1f, 0f, 0f);
-//        glu.gluCylinder(q, WIDTH_BOTTOM_BONNET,
-//                WIDTH_BOTTOM_BONNET, HEIGHT_BOTTOM_BONNET, 100, STACKS);
-//        gl.glRotatef(80f, -1f, 0f, 0f);
-//        gl.glTranslatef(0.0f, -HEIGHT_BOTTOM_BONNET + 0.005f, 0.02f);
-//        gl.glRotatef(80f, 1f, 0f, 0f);
-//        glu.gluDisk(q, 0f, 0.527, SLICES, STACKS);
-//        gl.glPopMatrix();
-//        //we create bonnet     
-//        set_blue_material(gl);
-//        gl.glPushMatrix();
-//        gl.glTranslatef(0.0f, 0.5f, 0.0f);
-//        gl.glRotatef(350f, 1f, 0f, 0f);
-//        double[] cutplane = new double[]{0.0f, 1.0f, 0.0f, 0.0f};
-//        gl.glClipPlane(GL.GL_CLIP_PLANE2, cutplane, 0);
-//        gl.glEnable(GL.GL_CLIP_PLANE2);
-//        glu.gluSphere(q, WIDTH_BONNET, 100, 100);
-//        gl.glDisable(GL.GL_CLIP_PLANE2);
-//        gl.glPopMatrix();
-//        //we create pompon
-//        set_red_material(gl);
-//        gl.glPushMatrix();
-//        gl.glTranslatef(0.0f, 1.05f, -0.1f);
-//        glu.gluSphere(q, WIDTH_POMPON, SLICES, STACKS);
-//        gl.glPopMatrix();
-//    }
+
 
     public void draw_legs(GL gl, GLU glu, char c, boolean left)
     {

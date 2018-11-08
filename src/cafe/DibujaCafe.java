@@ -27,8 +27,8 @@ import javax.swing.JFrame;
  *
  * @author Elizab eth
  */
-public class DibujaCafe extends JFrame implements GLEventListener,
-        KeyListener, MouseListener, MouseMotionListener {
+public class DibujaCafe extends JFrame implements GLEventListener, MouseListener, MouseMotionListener, KeyListener
+{
 
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;

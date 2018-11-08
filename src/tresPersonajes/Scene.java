@@ -130,7 +130,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
             tex.enable();
             tex.bind();
             gl.glTexEnvi(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_REPLACE);
-
+            gl.glPushMatrix();
             gl.glBegin(GL.GL_QUADS);
             gl.glTexCoord2f(0f, 1f);
             gl.glVertex3f(-5f, -3.5f, 0f);
@@ -141,6 +141,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
             gl.glTexCoord2f(0f, 0f);
             gl.glVertex3f(-5f, 3.5f, 0f);
             gl.glEnd();
+            gl.glPopMatrix();
             tex.disable();
         } catch (Exception e) {
 
@@ -150,21 +151,25 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         gl.glTranslated(-2.0, -1.5, 1.0);
         alan.dibujaPersonaje(gl, keys['W'] || keys['M'], keys['J'] || keys['K'], keys['V']);
         gl.glPopMatrix();
-
+        
+        gl.glPushMatrix();
         Cafe cafe = new Cafe();
         gl.glTranslatef(0, -0.8f, 0.8f);
         cafe.draw_stan(gl, keys['W'], keys['J'], keys['Q']);
-
+        gl.glPopMatrix();
+        
+        gl.glPushMatrix();
         DrawMonito drawMonito = new DrawMonito();
         gl.glTranslatef(1.8f, 0, 0.0f);
         drawMonito.draw_stan(gl, keys['W'], keys['J'], keys['A']);
-
+        gl.glPopMatrix();
         gl.glFlush();
     }
 
     public void dibujaFondo(GL gl) {
         cargaTextura(gl, "fondo.jpg");
         gl.glBindTexture(GL.GL_TEXTURE_2D, texture);
+        gl.glPushMatrix();
         gl.glBegin(GL.GL_QUADS);
         gl.glTexCoord2f(0f, 1f);
         gl.glVertex3f(-5f, -3.5f, 0f);
@@ -174,6 +179,7 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         gl.glVertex3f(5f, 3.5f, 0f);
         gl.glTexCoord2f(0f, 0f);
         gl.glVertex3f(-5f, 3.5f, 0f);
+        gl.glPopMatrix();
         gl.glEnd();
     }
 
