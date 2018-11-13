@@ -7,6 +7,7 @@ package Nivel3;
 
 import Nivel2.*;
 import Nivel1.*;
+import Nivel4.PreguntasN4;
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Container;
@@ -84,7 +85,7 @@ public class PreguntasN3 extends JFrame implements ActionListener
     public PreguntasN3()
     {
 
-        setTitle("Nivel 2 -Programacion Orientada a objetos");
+        setTitle("Nivel 2 -Estructura de Datos");
         setSize(500, 400);
         c = getContentPane();
         c.setBackground(Color.cyan);
@@ -201,9 +202,10 @@ public class PreguntasN3 extends JFrame implements ActionListener
 
             if (punt == 7)
             {
-                JOptionPane.showMessageDialog(null, "Has avanzado de nivel");
+                JOptionPane.showMessageDialog(null, "JUEGO COMPLETADO, FELICIDADES!!!");
                 pin.frame.dispose();
                 this.dispose();
+                PreguntasN4 p4 = new PreguntasN4();
 
             }
             colocalpreguntas();

@@ -54,7 +54,9 @@ public class MrsAlgebra {
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
         
-        if(jump && mvt%20+10>20){
+        
+      
+        if(jump && mvt%20+10>20  || pu.isRespuestacorrecta()){
             gl.glTranslatef(0f, 0.35f, 0f);
            
             draw_arm_left(gl, glu, 'J');
