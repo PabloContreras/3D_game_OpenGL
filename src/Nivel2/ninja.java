@@ -57,7 +57,7 @@ public class ninja extends JFrame implements GLEventListener,
     }
     
     
-      public void mainBooky()
+      public void mainNinja()
     {
         frame = new JFrame("Ninja");
         GLCanvas canvas = new GLCanvas();

@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Nivel1;
+package Nivel4;
 
-import Nivel2.PreguntasN2;
+import Nivel3.*;
+import Nivel2.*;
+import Nivel1.*;
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Container;
@@ -27,12 +29,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import org.yourorghere.Main;
 
 /**
  *
  */
-public class PreguntasN1 extends JFrame implements ActionListener
+public class PreguntasN4 extends JFrame implements ActionListener
 {
 
     JLabel esp, indic, ins, is, puntaje;
@@ -43,93 +44,91 @@ public class PreguntasN1 extends JFrame implements ActionListener
     Container c;
     int a;
     int punt = 0, vidas = 3;
-    DibujaCafe cafe;
+    AlgebraMain alge;
     ArrayList<Integer> preguntas = new ArrayList<Integer>();
     int totalpreg = 0;
     PuntajeF pu = new PuntajeF();
     String[][] preg =
     {
         {
-            "Un computador es: ", 
-            "<html>a. Una máquina electrónica que procesa información</html>",
-            "<html>b. Un equipo de oficina</html> ",
-            "<html>c. Una organización numérica</html>",
-            "a", ""
+            "<html>El sistema numérico que utiliza los dígitos del 0 al 7.  En informática a veces se Tiene la ventaja de que no requiere utilizar otros símbolos diferentes de los dígitos</html>", 
+            "a) DECIMAL ",
+            "b)	OCTAL",
+            "c)	BINARIO",
+            "b",
+            ""
         },
         {
-            "Un sistema operativo es:",
-            "<html>a. Un procesador de texto</html> ", 
-            "<html>b. El software básico del computador</html> ",
-            "<html>b. El software básico del computador </html>","b", ""
+            "<html>El sistema numérico que sus números están representados por los 10 primeros dígitos de la numeración decimal,y el intervalo que va del número 10 al 15 están representados por las letras del alfabeto de la A a la F.</html>",
+            "a)	OCTAL",
+            "b)	DECIMAL",
+            "c)	HEXADECIMAL",
+            "c",
+            ""
         },
         {
-            "Los dispositivos de entrada permiten: ", 
-            "<html>a. Almacenar datos en el computador </html>",
-            "<html>b. Desplegar información almacenada en el equipo</html>",
-            "<html>c. Ingresar datos al computador </html>", "c", ""
+            "<html>El sistema de numeración solo tiene dos dígitos. El sistema numérico con sus dos dígitos es un sistema en base dos. Los dígitos son 0 y 1.</html>",
+            "a)	HEXADECIMAL ",
+            "b)	BINARIO",
+            "c)	OCTAL",
+            "b",
+            ""
         },
         {
-            "<html>Los dispositivos de salida permiten: </html>",
-            "<html>a. Guardar datos en el computador</html> ",
-            "<html>b. Desplegar información almacenada en el equipo</html> ",
-            "<html>c. Ingresar datos al computador</html> ",
-                "b", ""
+            "<html>El sistema de numeración es un sistema de numeración posicional en el que las cantidades se representan utilizando como base aritmética las potencias del número diez.</html>",
+            "a)	BINARIO",
+            "b)	HEXADECIMAL ",
+            "c)	DECIMAL",
+            "c",
+            ""
         },
         {
-            "<html>Un algoritmo es: </html>", 
-            "<html>a. Un conjunto de operaciones que se usan para resolver un problema específico. </html>", 
-            "<html>b. Un conjunto de programas informáticos </html>",
-            "<html>c. Un conjunto de software libre </html>", "a", ""
+            "<html>El conjunto A ? B es el conjunto que contiene todos los elementos que pertenecen o bien a A o bien a B. </html>",
+            "a)	UNION",
+            "b)	INTERSECCION",
+            "c)	COMPLEMENTO",
+            "a",
+            ""
         },
         {
-            "<html>La prueba de escritorios se usa para:</html> ", 
-            "<html>a. Programar órdenes </html>",
-            "<html>b. Verificar si el algoritmo está correcto</html> ",
-            "<html>c. Eliminar virus informáticos </html>", "b", ""
+            "<html>Sean A un conjunto se escribe ~A, es el conjunto de todos los elementos que no pertenecen a A. </html>",
+            "a)	INTERSECCION ",
+            "b)	DIFERENCIA ",
+            "c)	COMPLEMENTO",
+            "c",
+            ""
         },
         {
-            "Una variable es:", 
-            "<html>a. Un lugar de almacenamiento, cuyo contenido podrá variar durante el proceso y finalmente se obtendrán los resultados con los datos contenidos en ellas. </html>",
-            "<html>b. Un lugar de almacenamiento, cuyo contenido no varía durante el proceso y finalmente se obtendrán los resultados con los datos contenidos en ellas. </html>",
-            "<html>c. Ninguna de las anteriores</html> ","a",""
-
+            "<html>Sean A y B dos conjuntos, es el conjunto de todos los elementos de A que no pertenecen a B</html>",
+            "a)	COMPLEMENTO",
+            "b)	DIFERENCIA ",
+            "c)	INTERSECCION",
+            "b",
+            ""
         },
         {
-            "Un operador es: ",
-            "<html>a. Un lugar de almacenamiento de datos</html> ",
-            "<html>b. Un símbolo especial que indica la compilador que debe efectuar una operación matemática o lógica </html>",
-            "<html>c. Una variable </html>","b",""
-        },
-        {
-            "<html>Los operadores relacionales se utilizan siempre en:</html> ",
-            "<html>a. Operaciones de comparación </html>",
-            "<html>b. Operaciones de suma y resta</html> ",
-            "<html>c. Operaciones de multiplicación y división </html>",
-            "a",""
-
-        },
-        {
-            "<html>Una estructura secuencial es aquella que ejecuta: </html>",
-            "<html>a. Una evaluación de una expresión y, dependiendo del resultado, se decide la siguiente sentencia a ejecutar. </html>",
-            "<html>b. Una sentencia detrás de otra </html>",
-            "<html>c. Una repetición de un bloque de sentencias, mientras sea verdadera una determinada condición </html>",
-            "b",""
-
+            "<html>Sean A y B dos conjuntos, es el conjunto que contiene todos los elementos comunes a ambos A y B</html>",
+            "a)	DIFERENCIA",
+            "b)	UNION",
+            "c)	INTERSECCION",
+            "c",
+            ""
         }
     };
 
-    public PreguntasN1()
+    public PreguntasN4()
     {
 
-        setTitle("Nivel 1 -Fundamentos de Prpgramacion");
+        setTitle("Nivel 2 -Matematicas Discretas");
         setSize(500, 400);
         c = getContentPane();
-        c.setBackground(Color.yellow);
+        c.setBackground(Color.cyan);
         colocarComp();
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        cafe = new DibujaCafe(pu);
-        cafe.mainCafe();
+        //pin = new Personaje(pu);
+        alge = new AlgebraMain(pu);
+        alge.mainAlgebra();
     }
 
     public void iniciarComp()
@@ -137,11 +136,11 @@ public class PreguntasN1 extends JFrame implements ActionListener
         indic = new JLabel("Selecciona una respuesta");
         indic.setFont(new Font("Kristen ITC", 0, 20));
         pregunta = new JLabel();
-        pregunta.setFont(new Font("Kristen ITC", Font.CENTER_BASELINE, 14));
+        pregunta.setFont(new Font("Kristen ITC", Font.CENTER_BASELINE, 12));
         puntaje = new JLabel("Puntos = 0 Vidas = 3");
         pregunta.setForeground(Color.DARK_GRAY);
         A.setFont(new Font("Kristen ITC", 0, 12));
-        B.setFont(new Font("Kristen ITC", 0,12));
+        B.setFont(new Font("Kristen ITC", 0, 12));
         C.setFont(new Font("Kristen ITC", 0, 12));
 
         A.addActionListener(this);
@@ -160,11 +159,11 @@ public class PreguntasN1 extends JFrame implements ActionListener
         c.add(pregunta);
         puntaje.setBounds(20, 250, 280, 50);
         c.add(puntaje);
-        A.setBounds(20, 130, 450, 30);
+        A.setBounds(20, 130, 230, 30);
         c.add(A);
-        B.setBounds(20, 170, 450, 30);
+        B.setBounds(20, 170, 230, 30);
         c.add(B);
-        C.setBounds(20, 210, 450, 30);
+        C.setBounds(20, 210, 230, 30);
         c.add(C);
 
     }
@@ -192,10 +191,10 @@ public class PreguntasN1 extends JFrame implements ActionListener
 
     private void colocalpreguntas()
     {
-    if (preguntas.size() >= preg.length)
+        if (preguntas.size() >= preg.length)
         {
             this.dispose();
-            cafe.jframe.dispose();
+            alge.dispose();
 
         } else
         {
@@ -205,6 +204,7 @@ public class PreguntasN1 extends JFrame implements ActionListener
             B.setText(preg[a][2]);
             C.setText(preg[a][3]);
         }
+
     }
 
     public void actionPerformed(ActionEvent ae)
@@ -225,6 +225,7 @@ public class PreguntasN1 extends JFrame implements ActionListener
 
     public boolean checarespueta(String respuesta)
     {
+//        lup.repaint();
         boolean acierto;
         if (preg[a][4].equals(respuesta))
         {
@@ -233,13 +234,12 @@ public class PreguntasN1 extends JFrame implements ActionListener
             JOptionPane.showMessageDialog(null, "Respuesta Correcta...");
             pu.setRespuestacorrecta(false);
             acierto = true;
-           // cafe.setAlwaysOnTop(true);
+
             if (punt == 7)
             {
                 JOptionPane.showMessageDialog(null, "Has avanzado de nivel");
+                //pin.frame.dispose();
                 this.dispose();
-                cafe.jframe.dispose();
-                PreguntasN2 p2 = new PreguntasN2();
 
             }
             colocalpreguntas();
@@ -251,9 +251,7 @@ public class PreguntasN1 extends JFrame implements ActionListener
             if (vidas == 0)
             {
                 JOptionPane.showMessageDialog(null, "Perdiste, suerte para la próxima");
-                PreguntasN1 nuevo = new PreguntasN1();
                 System.exit(vidas);
-                
 
             } else
             {

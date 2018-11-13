@@ -91,7 +91,7 @@ public class PreguntasN2 extends JFrame implements ActionListener
         setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ninja = new ninja(pu);
-        ninja.mainBooky();
+        ninja.mainNinja();
     }
 
     public void iniciarComp()

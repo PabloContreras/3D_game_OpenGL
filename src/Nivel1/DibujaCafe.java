@@ -48,7 +48,7 @@ public class DibujaCafe extends JFrame implements GLEventListener, MouseListener
     Fondo fondonoche = new Fondo();
     JFrame jframe;
     Cafe cafe;
-
+    PuntajeF pu;
     public DibujaCafe(PuntajeF pu)
     {
         this.pu=pu;
@@ -56,7 +56,7 @@ public class DibujaCafe extends JFrame implements GLEventListener, MouseListener
     
      public void mainCafe()
     {
-        jframe = new JFrame("Lupy-Lens-Press J|W|R|F|M");
+        jframe = new JFrame("Coffe ");
         GLCanvas canvas = new GLCanvas();
         canvas.addGLEventListener(new DibujaCafe(pu));
         jframe.add(canvas);
@@ -71,7 +71,7 @@ public class DibujaCafe extends JFrame implements GLEventListener, MouseListener
     }
     
 
-    PuntajeF pu;
+    
 
 //    public static void main(String[] args) {
 //        Frame frame = new Frame("South Park : Stan (Press J to jump and press W to walk)");
@@ -217,7 +217,7 @@ public class DibujaCafe extends JFrame implements GLEventListener, MouseListener
 
         }
         //we draw Stan in the window
-        Cafe stan = new Cafe(); 
+        Cafe stan = new Cafe(pu); 
         stan.draw_stan(gl, keys['W'], keys['J'], keys['q']);         
         // Flush all drawing operations to the graphics card
         gl.glFlush();

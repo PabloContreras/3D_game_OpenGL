@@ -84,7 +84,7 @@ public class PreguntasN3 extends JFrame implements ActionListener
     public PreguntasN3()
     {
 
-        setTitle("Nivel 2 -Historia de México");
+        setTitle("Nivel 2 -Programacion Orientada a objetos");
         setSize(500, 400);
         c = getContentPane();
         c.setBackground(Color.cyan);

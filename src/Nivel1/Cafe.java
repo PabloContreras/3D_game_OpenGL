@@ -42,10 +42,13 @@ public class Cafe {
     private static final float WIDTH_BONNET = 0.52f;
     private static final float WIDTH_PUPILS = 0.03f;
     private static final float WIDTH_POMPON = 0.12f;
+    int x=0;
+    PuntajeF pu;
 
     //position of each component int the window
-    public Cafe() 
+    public Cafe(PuntajeF pu) 
     {
+        this.pu=pu;
     }
 
     public void draw_stan(GL gl, boolean walk, boolean jump, boolean walkAlone) {
@@ -56,6 +59,17 @@ public class Cafe {
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
         
+        
+        if (pu.isRespuestacorrecta())
+        {
+             gl.glTranslatef(0f, 0.35f, 0f);
+            draw_legs(gl, glu, 'J', false);
+            draw_legs(gl, glu, 'J', true);
+            draw_arm_left(gl, glu, 'J');
+            draw_arm_right(gl, glu, 'J');
+            draw_head (gl, glu, true);
+            
+        }
         //coffe is walk alne, bitch
         if(walkAlone && mvt%20+10>20){       
             draw_legs(gl, glu, 'Q', false);
