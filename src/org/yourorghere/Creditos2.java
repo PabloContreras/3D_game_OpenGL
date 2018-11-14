@@ -18,13 +18,7 @@ public class Creditos2 extends javax.swing.JFrame
     public Creditos2()
     {
         initComponents();
-        jTextPane2.setText("Instituto Tecnololgico de Toluca \n\n"
-                + "Ingenieria en Sistemas Computacionales \n\n"
-                + "presenta: Pablo Einar Contreras Gutierrez\n"
-                + "Alan Jaziel Martinez Mejia \n"
-                + "Luis Gerardo Porcayo Marcos \n"
-                + "Materia:  Graficac[ion \n"
-                + "");
+        
     }
 
     /**
@@ -37,27 +31,21 @@ public class Creditos2 extends javax.swing.JFrame
     private void initComponents()
     {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextPane2 = new javax.swing.JTextPane();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jScrollPane2.setViewportView(jTextPane2);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Ima/creditos2.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 75, Short.MAX_VALUE))
+            .addComponent(jLabel1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
-                .addGap(51, 51, 51))
+            .addComponent(jLabel1)
         );
 
         pack();
@@ -109,7 +97,6 @@ public class Creditos2 extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextPane jTextPane2;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
