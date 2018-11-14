@@ -5,36 +5,26 @@
  */
 package Nivel4;
 
-import Nivel3.*;
-import Nivel2.*;
-import Nivel1.*;
-import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  *
  */
-public class PreguntasN4 extends JFrame implements ActionListener
-{
+public class PreguntasN4 extends JFrame implements ActionListener {
 
     JLabel esp, indic, ins, is, puntaje;
     JLabel pregunta = new JLabel();
@@ -48,76 +38,78 @@ public class PreguntasN4 extends JFrame implements ActionListener
     ArrayList<Integer> preguntas = new ArrayList<Integer>();
     int totalpreg = 0;
     PuntajeF pu = new PuntajeF();
-    String[][] preg =
-    {
-        {
-            "<html>El sistema numérico que utiliza los dígitos del 0 al 7.  En informática a veces se Tiene la ventaja de que no requiere utilizar otros símbolos diferentes de los dígitos</html>", 
-            "a) DECIMAL ",
-            "b)	OCTAL",
-            "c)	BINARIO",
-            "b",
-            ""
-        },
-        {
-            "<html>El sistema numérico que sus números están representados por los 10 primeros dígitos de la numeración decimal,y el intervalo que va del número 10 al 15 están representados por las letras del alfabeto de la A a la F.</html>",
-            "a)	OCTAL",
-            "b)	DECIMAL",
-            "c)	HEXADECIMAL",
-            "c",
-            ""
-        },
-        {
-            "<html>El sistema de numeración solo tiene dos dígitos. El sistema numérico con sus dos dígitos es un sistema en base dos. Los dígitos son 0 y 1.</html>",
-            "a)	HEXADECIMAL ",
-            "b)	BINARIO",
-            "c)	OCTAL",
-            "b",
-            ""
-        },
-        {
-            "<html>El sistema de numeración es un sistema de numeración posicional en el que las cantidades se representan utilizando como base aritmética las potencias del número diez.</html>",
-            "a)	BINARIO",
-            "b)	HEXADECIMAL ",
-            "c)	DECIMAL",
-            "c",
-            ""
-        },
-        {
-            "<html>El conjunto A ? B es el conjunto que contiene todos los elementos que pertenecen o bien a A o bien a B. </html>",
-            "a)	UNION",
-            "b)	INTERSECCION",
-            "c)	COMPLEMENTO",
-            "a",
-            ""
-        },
-        {
-            "<html>Sean A un conjunto se escribe ~A, es el conjunto de todos los elementos que no pertenecen a A. </html>",
-            "a)	INTERSECCION ",
-            "b)	DIFERENCIA ",
-            "c)	COMPLEMENTO",
-            "c",
-            ""
-        },
-        {
-            "<html>Sean A y B dos conjuntos, es el conjunto de todos los elementos de A que no pertenecen a B</html>",
-            "a)	COMPLEMENTO",
-            "b)	DIFERENCIA ",
-            "c)	INTERSECCION",
-            "b",
-            ""
-        },
-        {
-            "<html>Sean A y B dos conjuntos, es el conjunto que contiene todos los elementos comunes a ambos A y B</html>",
-            "a)	DIFERENCIA",
-            "b)	UNION",
-            "c)	INTERSECCION",
-            "c",
-            ""
-        }
-    };
+    final Sonido sonido = new Sonido();
+    AudioStream audio;
+    InputStream sounds;
+    String[][] preg
+            = {
+                {
+                    "<html>El sistema numérico que utiliza los dígitos del 0 al 7.  En informática a veces se Tiene la ventaja de que no requiere utilizar otros símbolos diferentes de los dígitos</html>",
+                    "a) DECIMAL ",
+                    "b)	OCTAL",
+                    "c)	BINARIO",
+                    "b",
+                    ""
+                },
+                {
+                    "<html>El sistema numérico que sus números están representados por los 10 primeros dígitos de la numeración decimal,y el intervalo que va del número 10 al 15 están representados por las letras del alfabeto de la A a la F.</html>",
+                    "a)	OCTAL",
+                    "b)	DECIMAL",
+                    "c)	HEXADECIMAL",
+                    "c",
+                    ""
+                },
+                {
+                    "<html>El sistema de numeración solo tiene dos dígitos. El sistema numérico con sus dos dígitos es un sistema en base dos. Los dígitos son 0 y 1.</html>",
+                    "a)	HEXADECIMAL ",
+                    "b)	BINARIO",
+                    "c)	OCTAL",
+                    "b",
+                    ""
+                },
+                {
+                    "<html>El sistema de numeración es un sistema de numeración posicional en el que las cantidades se representan utilizando como base aritmética las potencias del número diez.</html>",
+                    "a)	BINARIO",
+                    "b)	HEXADECIMAL ",
+                    "c)	DECIMAL",
+                    "c",
+                    ""
+                },
+                {
+                    "<html>El conjunto A ? B es el conjunto que contiene todos los elementos que pertenecen o bien a A o bien a B. </html>",
+                    "a)	UNION",
+                    "b)	INTERSECCION",
+                    "c)	COMPLEMENTO",
+                    "a",
+                    ""
+                },
+                {
+                    "<html>Sean A un conjunto se escribe ~A, es el conjunto de todos los elementos que no pertenecen a A. </html>",
+                    "a)	INTERSECCION ",
+                    "b)	DIFERENCIA ",
+                    "c)	COMPLEMENTO",
+                    "c",
+                    ""
+                },
+                {
+                    "<html>Sean A y B dos conjuntos, es el conjunto de todos los elementos de A que no pertenecen a B</html>",
+                    "a)	COMPLEMENTO",
+                    "b)	DIFERENCIA ",
+                    "c)	INTERSECCION",
+                    "b",
+                    ""
+                },
+                {
+                    "<html>Sean A y B dos conjuntos, es el conjunto que contiene todos los elementos comunes a ambos A y B</html>",
+                    "a)	DIFERENCIA",
+                    "b)	UNION",
+                    "c)	INTERSECCION",
+                    "c",
+                    ""
+                }
+            };
 
-    public PreguntasN4()
-    {
+    public PreguntasN4() {
 
         setTitle("Nivel 4 -Matematicas Discretas");
         setSize(500, 400);
@@ -131,8 +123,7 @@ public class PreguntasN4 extends JFrame implements ActionListener
         alge.mainAlgebra();
     }
 
-    public void iniciarComp()
-    {
+    public void iniciarComp() {
         indic = new JLabel("Selecciona una respuesta");
         indic.setFont(new Font("Kristen ITC", 0, 20));
         pregunta = new JLabel();
@@ -148,8 +139,7 @@ public class PreguntasN4 extends JFrame implements ActionListener
         C.addActionListener(this);
     }
 
-    public void colocarComp()
-    {
+    public void colocarComp() {
         iniciarComp();
         colocalpreguntas();
         c.setLayout(null);
@@ -168,36 +158,29 @@ public class PreguntasN4 extends JFrame implements ActionListener
 
     }
 
-    public int RandomconRango(int min, int max)
-    {
+    public int RandomconRango(int min, int max) {
         int range = (max - min) + 1;
         return (int) (Math.random() * range) + min;
     }
 
-    public int numpregunta()
-    {
+    public int numpregunta() {
 
         a = RandomconRango(0, 7);
-        if (preguntas.contains(a))
-        {
+        if (preguntas.contains(a)) {
             return numpregunta();
-        } else
-        {
+        } else {
             preguntas.add(a);
         }
         return a;
 
     }
 
-    private void colocalpreguntas()
-    {
-        if (preguntas.size() >= preg.length)
-        {
+    private void colocalpreguntas() {
+        if (preguntas.size() >= preg.length) {
             this.dispose();
             alge.dispose();
 
-        } else
-        {
+        } else {
             a = numpregunta();
             pregunta.setText(preg[a][0]);
             A.setText(preg[a][1]);
@@ -207,36 +190,31 @@ public class PreguntasN4 extends JFrame implements ActionListener
 
     }
 
-    public void actionPerformed(ActionEvent ae)
-    {
-        if (ae.getSource() == A)
-        {
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == A) {
             checarespueta("a");
         }
-        if (ae.getSource() == B)
-        {
+        if (ae.getSource() == B) {
             checarespueta("b");
         }
-        if (ae.getSource() == C)
-        {
+        if (ae.getSource() == C) {
             checarespueta("c");
         }
     }
 
-    public boolean checarespueta(String respuesta)
-    {
+    public boolean checarespueta(String respuesta) {
 //        lup.repaint();
         boolean acierto;
-        if (preg[a][4].equals(respuesta))
-        {
+        if (preg[a][4].equals(respuesta)) {
             punt++;
             pu.setRespuestacorrecta(true);
+            repAudio("correcto");
             JOptionPane.showMessageDialog(null, "Respuesta Correcta...");
             pu.setRespuestacorrecta(false);
             acierto = true;
 
-            if (punt == 7)
-            {
+            if (punt == 7) {
+                repAudio("winner");
                 JOptionPane.showMessageDialog(null, "JUEGO COMPLETADO, FELICIDADES!!!!");
                 //pin.frame.dispose();
                 alge.jframe.dispose();
@@ -244,19 +222,17 @@ public class PreguntasN4 extends JFrame implements ActionListener
 
             }
             colocalpreguntas();
-        } else
-        {
+        } else {
             vidas--;
             acierto = false;
             pu.setRespuestaincorrecta(true);
-            if (vidas == 0)
-            {
+            if (vidas == 0) {
+                repAudio("juego_terminado");
                 JOptionPane.showMessageDialog(null, "Perdiste, suerte para la próxima");
                 System.exit(vidas);
 
-            } else
-            {
-
+            } else {
+                repAudio("error");
                 JOptionPane.showMessageDialog(null, "Respuesta Incorrecta.. Intentalo de nuevo", "Error",
                         JOptionPane.WARNING_MESSAGE);
 
@@ -266,6 +242,19 @@ public class PreguntasN4 extends JFrame implements ActionListener
         puntaje.setText("Puntos = " + punt + " Vidas = " + vidas);
         pu.setTotal(punt);
         return acierto;
+    }
+
+    private void repAudio(String sonido) {
+        try {
+            if (audio != null) {
+                AudioPlayer.player.stop(audio);
+            }
+            sounds = new FileInputStream(new File("src/audios/" + sonido + ".wav"));
+            audio = new AudioStream(sounds);
+            AudioPlayer.player.start(audio);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
+        }
     }
 
 }

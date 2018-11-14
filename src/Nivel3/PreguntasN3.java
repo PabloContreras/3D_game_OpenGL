@@ -5,30 +5,22 @@
  */
 package Nivel3;
 
-import Nivel2.*;
-import Nivel1.*;
 import Nivel4.PreguntasN4;
-import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Font;
-import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.media.opengl.GL;
-import javax.media.opengl.GLAutoDrawable;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 /**
  *
@@ -47,6 +39,9 @@ public class PreguntasN3 extends JFrame implements ActionListener {
     ArrayList<Integer> preguntas = new ArrayList<Integer>();
     int totalpreg = 0;
     PuntajeF pu = new PuntajeF();
+        final Nivel4.Sonido sonido=new Nivel4.Sonido();
+    AudioStream audio;
+    InputStream sounds;
     String[][] preg
             = {
                 {
@@ -221,11 +216,13 @@ public class PreguntasN3 extends JFrame implements ActionListener {
             DibujaPersonaje.iniciaNo = false;
             punt++;
             pu.setRespuestacorrecta(true);
+            repAudio("correcto");
             JOptionPane.showMessageDialog(null, "Respuesta Correcta...");
             pu.setRespuestacorrecta(false);
             acierto = true;
 
             if (punt == 7) {
+                repAudio("winner");
                 JOptionPane.showMessageDialog(null, "Has avanzado de nivel");
                 pin.frame.dispose();
                 this.dispose();
@@ -238,10 +235,12 @@ public class PreguntasN3 extends JFrame implements ActionListener {
             acierto = false;
             pu.setRespuestaincorrecta(true);
             if (vidas == 0) {
+                repAudio("juego_terminado");
                 JOptionPane.showMessageDialog(null, "Perdiste, suerte para la próxima");
                 System.exit(vidas);
 
             } else {
+                repAudio("error");
                 DibujaPersonaje.iniciaNo = true;
                 JOptionPane.showMessageDialog(null, "Respuesta Incorrecta.. Intentalo de nuevo", "Error",
                         JOptionPane.WARNING_MESSAGE);
@@ -253,5 +252,19 @@ public class PreguntasN3 extends JFrame implements ActionListener {
         pu.setTotal(punt);
         return acierto;
     }
+    
+     private void repAudio(String correcto) {
+        try {
+            if (audio != null) {
+                AudioPlayer.player.stop(audio);
+            }
+            sounds = new FileInputStream(new File("src/audios/" + sonido + ".wav"));
+            audio = new AudioStream(sounds);
+            AudioPlayer.player.start(audio);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getLocalizedMessage());
+        }
+    }
+
 
 }
