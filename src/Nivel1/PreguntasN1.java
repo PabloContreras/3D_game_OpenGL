@@ -257,7 +257,7 @@ public class PreguntasN1 extends JFrame implements ActionListener
 
             } else
             {
-
+                Cafe.iniciaNo = true;
                 JOptionPane.showMessageDialog(null, "Respuesta Incorrecta.. Intentalo de nuevo", "Error",
                         JOptionPane.WARNING_MESSAGE);
 

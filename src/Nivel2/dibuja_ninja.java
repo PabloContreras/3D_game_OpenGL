@@ -32,7 +32,7 @@ public class dibuja_ninja {
     private static final float HEIGHT_EAR = 0.1f;
     private static final float WIDTH_MASK = 0.450f;
     private static final float WIDTH_HEAD = 0.5f;
-    
+
     private static final float WIDTH_EYES = 0.3f;
     private static final float WIDTH_HANDS = 0.1f;
     private static final float WIDTH_FINGERS = 0.0525f;
@@ -42,13 +42,15 @@ public class dibuja_ninja {
     //private static final float WIDTH_BUTTONS = 0.0525f;
     //private static final float SPACE_BETWEEN_BUTTONS = 0.12f;
     private static final float WIDTH_PUPILS = 0.1f;
-    int x=0;
+    int x = 0;
     PuntajeF pu;
+    static boolean pos;
+    static boolean iniciaNo = false;
+    static double angle;
 
     //position of each component int the window
-    public dibuja_ninja(PuntajeF pu) 
-    {
-        this.pu= pu;
+    public dibuja_ninja(PuntajeF pu) {
+        this.pu = pu;
     }
 
     public void draw_stan(GL gl, boolean walk, boolean jump, boolean walkAlone) {
@@ -59,65 +61,77 @@ public class dibuja_ninja {
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
 
-        
-        //Octocat is walking
-        if(walk && mvt%20+10>20)
-        {
+        gl.glScaled(1.5, 1.5, 1.5);
+//        Octocat is walking
+        if (walk && mvt % 20 + 10 > 20) {
             draw_legs(gl, glu, 'W', false);
             draw_legs(gl, glu, ' ', true);
             draw_arm_left(gl, glu, ' ');
             draw_arm_right(gl, glu, 'W');
-            draw_head (gl, glu, false);
-        }
-        else 
-            if(walk && mvt%20+10<=20)
-            {
+            draw_head(gl, glu, false);
+        } else if (walk && mvt % 20 + 10 <= 20) {
             draw_legs(gl, glu, ' ', false);
             draw_legs(gl, glu, 'W', true);
             draw_arm_left(gl, glu, 'W');
             draw_arm_right(gl, glu, ' ');
-            draw_head (gl, glu, false);
-            }
-        if(walkAlone && mvt%20+10>20){
+            draw_head(gl, glu, false);
+        }
+        if (walkAlone && mvt % 20 + 10 > 20) {
             draw_legs(gl, glu, 'A', false);
             draw_legs(gl, glu, ' ', true);
             draw_arm_left(gl, glu, ' ');
             draw_arm_right(gl, glu, 'A');
-            draw_head (gl, glu, false);
-        }
-        else 
-            if(walkAlone && mvt%20+10<=20)
-            {
+            draw_head(gl, glu, false);
+        } else if (walkAlone && mvt % 20 + 10 <= 20) {
             draw_legs(gl, glu, ' ', false);
             draw_legs(gl, glu, 'A', true);
             draw_arm_left(gl, glu, 'A');
             draw_arm_right(gl, glu, ' ');
-            draw_head (gl, glu, false);
-            }
-           
-       //octocat is jumping
-else if((jump && mvt%20+10>20 || pu.isRespuestacorrecta())){
+            draw_head(gl, glu, false);
+        } //octocat is jumping
+        else if (jump && mvt % 20 + 10 > 20) {
             gl.glTranslatef(0f, 0.35f, 0f);
             draw_legs(gl, glu, 'J', false);
             draw_legs(gl, glu, 'J', true);
             draw_arm_left(gl, glu, 'J');
             draw_arm_right(gl, glu, 'J');
-            draw_head (gl, glu, true);
-        }
-        
-        //octocat is normal
-        else{
+            draw_head(gl, glu, true);
+        } else if (pu.isRespuestacorrecta()) {
+            gl.glTranslatef(0f, 0.35f, 0f);
+            draw_legs(gl, glu, 'J', false);
+            draw_legs(gl, glu, 'J', true);
+            draw_arm_left(gl, glu, 'J');
+            draw_arm_right(gl, glu, 'J');
+            draw_head(gl, glu, true);
+        } else {
             draw_legs(gl, glu, ' ', false);
             draw_legs(gl, glu, ' ', true);
             draw_arm_left(gl, glu, ' ');
             draw_arm_right(gl, glu, ' ');
-            draw_head (gl, glu, false);
+            gl.glPushMatrix();
+            gl.glRotated(angle, 0, 1, 0);
+            draw_head(gl, glu, false);
+            gl.glPopMatrix();
+            if (iniciaNo) {
+                if (pos) {
+                    if (angle < 36) {
+                        angle += 2;
+                    } else {
+                        pos = !pos;
+                    }
+                } else {
+                    if (angle >= -36) {
+                        angle -= 2;
+                    } else {
+                        pos = !pos;
+                    }
+                }
+            }
         }
-        
-        
+
         mvt++;
-        draw_body (gl, glu);
-        draw_ears (gl, glu);
+        draw_body(gl, glu);
+        draw_ears(gl, glu);
 
     }
 
@@ -145,7 +159,6 @@ else if((jump && mvt%20+10>20 || pu.isRespuestacorrecta())){
         gl.glVertex3f(0.0f, 0.44f, 0.0f);
         gl.glEnd();
         gl.glPopMatrix();*/
-
         //we create sweat buttons
         /*gl.glPushMatrix();
         gl.glTranslatef(-0.06f, -0.15f, 0.315f);
@@ -155,7 +168,6 @@ else if((jump && mvt%20+10>20 || pu.isRespuestacorrecta())){
         gl.glTranslatef(0.0f, -SPACE_BETWEEN_BUTTONS, 0.013f);
         glu.gluSphere(q, WIDTH_BUTTONS, SLICES, STACKS);
         gl.glPopMatrix();*/
-
     }
 
     public void draw_head(GL gl, GLU glu, boolean jump) {
@@ -163,16 +175,16 @@ else if((jump && mvt%20+10>20 || pu.isRespuestacorrecta())){
         set_black_material(gl);
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, 0.5f, 0f);
-        glu.gluSphere(q, WIDTH_HEAD, SLICES, STACKS);        
+        glu.gluSphere(q, WIDTH_HEAD, SLICES, STACKS);
         gl.glPopMatrix();
-        
+
         //We create a mask
         set_skin_material(gl);
         gl.glPushMatrix();
         gl.glTranslatef(0f, 0.460f, 0.100f);
-        glu.gluSphere(q, WIDTH_MASK, SLICES, STACKS);        
+        glu.gluSphere(q, WIDTH_MASK, SLICES, STACKS);
         gl.glPopMatrix();
-        
+
         //we create eyes (white)
         set_eyes_material(gl);
 
@@ -211,8 +223,7 @@ else if((jump && mvt%20+10>20 || pu.isRespuestacorrecta())){
     }
 
     public void draw_ears(GL gl, GLU glu) {
-        
-        
+
         gl.glPushMatrix();
         gl.glTranslatef(0.0f, 0.58f, -0.01f);
         gl.glRotatef(80f, 1f, 0f, 0f);
@@ -424,7 +435,6 @@ else if((jump && mvt%20+10>20 || pu.isRespuestacorrecta())){
         gl.glPopMatrix();
 
     }*/
-
     public void draw_torus(GL gl, float R, float r, int N, int n) {
 
         int maxn = 1000;
@@ -544,7 +554,6 @@ else if((jump && mvt%20+10>20 || pu.isRespuestacorrecta())){
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
 
     }
-    
 
     public void box(GL gl) {
         gl.glBegin(GL.GL_POLYGON);/* f1: front */

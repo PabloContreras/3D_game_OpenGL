@@ -33,8 +33,7 @@ import javax.swing.JOptionPane;
 /**
  *
  */
-public class PreguntasN3 extends JFrame implements ActionListener
-{
+public class PreguntasN3 extends JFrame implements ActionListener {
 
     JLabel esp, indic, ins, is, puntaje;
     JLabel pregunta = new JLabel();
@@ -48,84 +47,82 @@ public class PreguntasN3 extends JFrame implements ActionListener
     ArrayList<Integer> preguntas = new ArrayList<Integer>();
     int totalpreg = 0;
     PuntajeF pu = new PuntajeF();
-    String[][] preg =
-    {
-        {
-            "<html>Encapsulamiento</html>", 
-            "<html>a.	Mecanismo que agrupa el código en niveles de seguridad</html>",
-            "<html>b.	Define un método</html>",
-            "<html>c.	Construye un objeto</html>",
-            "a",
-            ""
-        },
-        {
-            "<html>Polimorfismo</html>", 
-            "<html>a.	Permite poder usar un nombre para especificar una clase general de acciones.</html>",
-            "<html>b.	Mecanismo que agrupa el código en niveles de seguridad</html>",
-            "<html>c.	Define un método</html>",
-            "a",
-            ""
-        },
-        {
-            "<html>Herencia</html>", 
-            "<html>a.	Un objeto puede adquirir las propiedades de otro.</html>",
-            "<html>b.	Un objeto adquiere propiedades de más de un objeto.</html>",
-            "<html>c.	Construye un objeto</html>",
-            "a",
-            ""
-        },
-        {
-            "<html>¿Qué significa LIFO?</html>", 
-            "<html>a.	Last in First out</html>",
-            "<html>b.	First in first out</html>",
-            "<html>c.	Cola</html>",
-            "a",
-            ""
-        },
-        {
-            "<html>¿Qué significa FIFO?</html>", 
-            "<html>a.	First in first out</html>",
-            "<html>b.	Last in First out</html>",
-            "<html>c.	Cola</html>",
-            "a",
-            ""
-        },
-        {
-            "<html>Es un ejemplo de LIFO</html>", 
-            "<html>a.	Cola</html>",
-            "<html>b.	Pila</html>",
-            "<html>c.	Árbol</html>",
-            "b",
-            ""
-        },
-        {
-            "<html>Es un ejemplo de FIFO</html>", 
-            "<html>a.	Cola</html>",
-            "<html>b.	Pila</html>",
-            "<html>c.	Árbol </html>",
-            "a",
-            ""
-        },
-        {
-            "<html>Es una estructura de datos lineal </html>", 
-            "<html>a.	Pila</html>",
-            "<html>b.	Árbol</html>",
-            "<html>c.	Grafo</html>",
-            "a",
-            ""
-        },
-        {
-            "<html>Es una estructura de datos no lineal</html>", 
-            "<html>a.	Pila</html>",
-            "<html>b.	Árbol</html>",
-            "<html>c.	Cola</html>",
-            "b",
-            ""
-        },
-    };
+    String[][] preg
+            = {
+                {
+                    "<html>Encapsulamiento</html>",
+                    "<html>a.	Mecanismo que agrupa el código en niveles de seguridad</html>",
+                    "<html>b.	Define un método</html>",
+                    "<html>c.	Construye un objeto</html>",
+                    "a",
+                    ""
+                },
+                {
+                    "<html>Polimorfismo</html>",
+                    "<html>a.	Permite poder usar un nombre para especificar una clase general de acciones.</html>",
+                    "<html>b.	Mecanismo que agrupa el código en niveles de seguridad</html>",
+                    "<html>c.	Define un método</html>",
+                    "a",
+                    ""
+                },
+                {
+                    "<html>Herencia</html>",
+                    "<html>a.	Un objeto puede adquirir las propiedades de otro.</html>",
+                    "<html>b.	Un objeto adquiere propiedades de más de un objeto.</html>",
+                    "<html>c.	Construye un objeto</html>",
+                    "a",
+                    ""
+                },
+                {
+                    "<html>¿Qué significa LIFO?</html>",
+                    "<html>a.	Last in First out</html>",
+                    "<html>b.	First in first out</html>",
+                    "<html>c.	Cola</html>",
+                    "a",
+                    ""
+                },
+                {
+                    "<html>¿Qué significa FIFO?</html>",
+                    "<html>a.	First in first out</html>",
+                    "<html>b.	Last in First out</html>",
+                    "<html>c.	Cola</html>",
+                    "a",
+                    ""
+                },
+                {
+                    "<html>Es un ejemplo de LIFO</html>",
+                    "<html>a.	Cola</html>",
+                    "<html>b.	Pila</html>",
+                    "<html>c.	Árbol</html>",
+                    "b",
+                    ""
+                },
+                {
+                    "<html>Es un ejemplo de FIFO</html>",
+                    "<html>a.	Cola</html>",
+                    "<html>b.	Pila</html>",
+                    "<html>c.	Árbol </html>",
+                    "a",
+                    ""
+                },
+                {
+                    "<html>Es una estructura de datos lineal </html>",
+                    "<html>a.	Pila</html>",
+                    "<html>b.	Árbol</html>",
+                    "<html>c.	Grafo</html>",
+                    "a",
+                    ""
+                },
+                {
+                    "<html>Es una estructura de datos no lineal</html>",
+                    "<html>a.	Pila</html>",
+                    "<html>b.	Árbol</html>",
+                    "<html>c.	Cola</html>",
+                    "b",
+                    ""
+                },};
 
-    public PreguntasN3()
-    {
+    public PreguntasN3() {
 
         setTitle("Nivel 3 -Estructura de Datos");
         setSize(500, 400);
@@ -138,8 +135,7 @@ public class PreguntasN3 extends JFrame implements ActionListener
         pin.mainBooky();
     }
 
-    public void iniciarComp()
-    {
+    public void iniciarComp() {
         indic = new JLabel("Selecciona una respuesta");
         indic.setFont(new Font("Kristen ITC", 0, 20));
         pregunta = new JLabel();
@@ -155,8 +151,7 @@ public class PreguntasN3 extends JFrame implements ActionListener
         C.addActionListener(this);
     }
 
-    public void colocarComp()
-    {
+    public void colocarComp() {
         iniciarComp();
         colocalpreguntas();
         c.setLayout(null);
@@ -173,39 +168,31 @@ public class PreguntasN3 extends JFrame implements ActionListener
         C.setBounds(20, 250, 450, 50);
         c.add(C);
 
-
     }
 
-    public int RandomconRango(int min, int max)
-    {
+    public int RandomconRango(int min, int max) {
         int range = (max - min) + 1;
         return (int) (Math.random() * range) + min;
     }
 
-    public int numpregunta()
-    {
+    public int numpregunta() {
 
         a = RandomconRango(0, 8);
-        if (preguntas.contains(a))
-        {
+        if (preguntas.contains(a)) {
             return numpregunta();
-        } else
-        {
+        } else {
             preguntas.add(a);
         }
         return a;
 
     }
 
-    private void colocalpreguntas()
-    {
-        if (preguntas.size() >= preg.length)
-        {
+    private void colocalpreguntas() {
+        if (preguntas.size() >= preg.length) {
             this.dispose();
             pin.dispose();
 
-        } else
-        {
+        } else {
             a = numpregunta();
             pregunta.setText(preg[a][0]);
             A.setText(preg[a][1]);
@@ -215,36 +202,30 @@ public class PreguntasN3 extends JFrame implements ActionListener
 
     }
 
-    public void actionPerformed(ActionEvent ae)
-    {
-        if (ae.getSource() == A)
-        {
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() == A) {
             checarespueta("a");
         }
-        if (ae.getSource() == B)
-        {
+        if (ae.getSource() == B) {
             checarespueta("b");
         }
-        if (ae.getSource() == C)
-        {
+        if (ae.getSource() == C) {
             checarespueta("c");
         }
     }
 
-    public boolean checarespueta(String respuesta)
-    {
+    public boolean checarespueta(String respuesta) {
 //        lup.repaint();
         boolean acierto;
-        if (preg[a][4].equals(respuesta))
-        {
+        if (preg[a][4].equals(respuesta)) {
+            DibujaPersonaje.iniciaNo = false;
             punt++;
             pu.setRespuestacorrecta(true);
             JOptionPane.showMessageDialog(null, "Respuesta Correcta...");
             pu.setRespuestacorrecta(false);
             acierto = true;
 
-            if (punt == 7)
-            {
+            if (punt == 7) {
                 JOptionPane.showMessageDialog(null, "Has avanzado de nivel");
                 pin.frame.dispose();
                 this.dispose();
@@ -252,19 +233,16 @@ public class PreguntasN3 extends JFrame implements ActionListener
 
             }
             colocalpreguntas();
-        } else
-        {
+        } else {
             vidas--;
             acierto = false;
             pu.setRespuestaincorrecta(true);
-            if (vidas == 0)
-            {
+            if (vidas == 0) {
                 JOptionPane.showMessageDialog(null, "Perdiste, suerte para la próxima");
                 System.exit(vidas);
 
-            } else
-            {
-
+            } else {
+                DibujaPersonaje.iniciaNo = true;
                 JOptionPane.showMessageDialog(null, "Respuesta Incorrecta.. Intentalo de nuevo", "Error",
                         JOptionPane.WARNING_MESSAGE);
 

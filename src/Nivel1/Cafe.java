@@ -4,6 +4,10 @@
  */
 package Nivel1;
 
+import static cafe.Cafe.angle;
+import static cafe.Cafe.tranx;
+import static cafe.Cafe.trany;
+import static cafe.Cafe.tranz;
 import javax.media.opengl.GL;
 import javax.media.opengl.glu.GLU;
 
@@ -16,7 +20,7 @@ import javax.media.opengl.glu.GLUquadric;
 public class Cafe {
 
 //precision and global variables
-      private static final int SLICES = 40;
+    private static final int SLICES = 40;
     private static final int STACKS = 40;
     private GLUquadric q = null;
     private static int mvt = 0;
@@ -42,97 +46,115 @@ public class Cafe {
     private static final float WIDTH_BONNET = 0.52f;
     private static final float WIDTH_PUPILS = 0.03f;
     private static final float WIDTH_POMPON = 0.12f;
-    int x=0;
+    int x = 0;
     PuntajeF pu;
+    static boolean pos;
+    static boolean iniciaNo = false;
+    static double angle;
 
     //position of each component int the window
-    public Cafe(PuntajeF pu) 
-    {
-        this.pu=pu;
+    public Cafe(PuntajeF pu) {
+        this.pu = pu;
     }
 
     public void draw_stan(GL gl, boolean walk, boolean jump, boolean walkAlone) {
-
+//        System.out.println("abcd");
         GLU glu = new GLU();
         q = glu.gluNewQuadric();
         glu.gluQuadricDrawStyle(q, GLU.GLU_FILL);
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
-        
-        
-        if (pu.isRespuestacorrecta())
-        {
-             gl.glTranslatef(0f, 0.35f, 0f);
-            draw_legs(gl, glu, 'J', false);
-            draw_legs(gl, glu, 'J', true);
-            draw_arm_left(gl, glu, 'J');
-            draw_arm_right(gl, glu, 'J');
-            draw_head (gl, glu, true);
-            
-        }
-        //coffe is walk alne, bitch
-        if(walkAlone && mvt%20+10>20){       
-            draw_legs(gl, glu, 'Q', false);
-            draw_legs(gl, glu, ' ', true);
-            draw_arm_left(gl, glu, ' ');
-            draw_arm_right(gl, glu, 'Q');
-            draw_head (gl, glu, false);
-        }
-        else if(walkAlone && mvt%20+10<=20){
-            draw_legs(gl, glu, ' ', false);
-            draw_legs(gl, glu, 'Q', true);
-            draw_arm_left(gl, glu, 'Q');
-            draw_arm_right(gl, glu, ' ');
-            draw_head (gl, glu, false);
-        }
-        //Stan is walking
-        if(walk && mvt%20+10>20){       
-            draw_legs(gl, glu, 'W', false);
-            draw_legs(gl, glu, ' ', true);
-            draw_arm_left(gl, glu, ' ');
-            draw_arm_right(gl, glu, 'W');
-            draw_head (gl, glu, false);
-        }
-        else if(walk && mvt%20+10<=20){
-            draw_legs(gl, glu, ' ', false);
-            draw_legs(gl, glu, 'W', true);
-            draw_arm_left(gl, glu, 'W');
-            draw_arm_right(gl, glu, ' ');
-            draw_head (gl, glu, false);
-        }
-           
-       //stan is jumping
-        else if(jump && mvt%20+10>20 ){
+
+        if (pu.isRespuestacorrecta()) {
+            iniciaNo = false;
             gl.glTranslatef(0f, 0.35f, 0f);
             draw_legs(gl, glu, 'J', false);
             draw_legs(gl, glu, 'J', true);
-            draw_arm_left(gl, glu, 'J');
-            draw_arm_right(gl, glu, 'J');
-            draw_head (gl, glu, true);
-        }
-        
-        //stan is normal
-        else{
+            draw_arm_left_2(gl, glu);
+            draw_arm_rigth_2(gl, glu);
+            draw_head(gl, glu, true);
+
+        } else {
+//            iniciaNo = true;
             draw_legs(gl, glu, ' ', false);
             draw_legs(gl, glu, ' ', true);
-            draw_arm_left(gl, glu, ' ');
-            draw_arm_right(gl, glu, ' ');
-            draw_head (gl, glu, false);
-        }   
-        
+            gl.glPushMatrix();
+            gl.glRotated(angle, tranx, trany + 1, tranz);
+            draw_arm_left(gl, glu,' ');
+            draw_arm_right(gl, glu,' ');
+            draw_head(gl, glu, false);
+            gl.glPopMatrix();
+            if (iniciaNo) {
+                if (pos) {
+                    if (angle < 36) {
+                        angle += 2;
+                    } else {
+                        pos = !pos;
+                    }
+                } else {
+                    if (angle >= -36) {
+                        angle -= 2;
+                    } else {
+                        pos = !pos;
+                    }
+                }
+            }
+        }
+
+//        //coffe is walk alne, bitch
+//        if (walkAlone && mvt % 20 + 10 > 20) {
+//            draw_legs(gl, glu, 'Q', false);
+//            draw_legs(gl, glu, ' ', true);
+//            draw_arm_left(gl, glu, ' ');
+//            draw_arm_right(gl, glu, 'Q');
+//            draw_head(gl, glu, false);
+//        } else if (walkAlone && mvt % 20 + 10 <= 20) {
+//            draw_legs(gl, glu, ' ', false);
+//            draw_legs(gl, glu, 'Q', true);
+//            draw_arm_left(gl, glu, 'Q');
+//            draw_arm_right(gl, glu, ' ');
+//            draw_head(gl, glu, false);
+//        }
+//        //Stan is walking
+//        if (walk && mvt % 20 + 10 > 20) {
+//            draw_legs(gl, glu, 'W', false);
+//            draw_legs(gl, glu, ' ', true);
+//            draw_arm_left(gl, glu, ' ');
+//            draw_arm_right(gl, glu, 'W');
+//            draw_head(gl, glu, false);
+//        } else if (walk && mvt % 20 + 10 <= 20) {
+//            draw_legs(gl, glu, ' ', false);
+//            draw_legs(gl, glu, 'W', true);
+//            draw_arm_left(gl, glu, 'W');
+//            draw_arm_right(gl, glu, ' ');
+//            draw_head(gl, glu, false);
+//        } //stan is jumping
+//        else if (jump && mvt % 20 + 10 > 20) {
+//            gl.glTranslatef(0f, 0.35f, 0f);
+//            draw_legs(gl, glu, 'J', false);
+//            draw_legs(gl, glu, 'J', true);
+//            draw_arm_left(gl, glu, 'J');
+//            draw_arm_right(gl, glu, 'J');
+//            draw_head(gl, glu, true);
+//        } //stan is normal
+//        else {
+//            draw_legs(gl, glu, ' ', false);
+//            draw_legs(gl, glu, ' ', true);
+//            draw_arm_left(gl, glu, ' ');
+//            draw_arm_right(gl, glu, ' ');
+//            draw_head(gl, glu, false);
+//        }
         mvt++;
         //draw_body (gl, glu);
-        draw_scarf (gl, glu);
+        draw_scarf(gl, glu);
         //draw_hat (gl, glu);
 
     }
-
 
     public void draw_head(GL gl, GLU glu, boolean jump) {
 
         //we create head
         //set_skin_material(gl);
-
         //set_grey_material(gl);
         //set_white_material(gl);
         set_eyes_material(gl);
@@ -140,7 +162,7 @@ public class Cafe {
         gl.glTranslatef(0.0f, 0.0f, 0.0f);
         glu.gluSphere(q, WIDTH_HEAD, SLICES, STACKS);
         gl.glPopMatrix();
-        
+
         //set_skin_material(gl);
         //set_grey_material(gl);
         set_eyes_material(gl);
@@ -149,7 +171,7 @@ public class Cafe {
         gl.glRotatef(270f, 1f, 0f, 0f);
         glu.gluCylinder(q, WIDTH_HEAD, WIDTH_HEAD, WIDTH_HEAD, SLICES, STACKS);
         gl.glPopMatrix();
-        
+
         //we create eyes (white)
         set_white_material(gl);
         gl.glPushMatrix();
@@ -158,14 +180,13 @@ public class Cafe {
         gl.glTranslatef(0.16f, 0.0f, 0.0f);
         glu.gluSphere(q, WIDTH_EYES, SLICES, STACKS);
         gl.glPopMatrix();
-        
+
         //dibuja oreja taza
         set_eyes_material(gl);
         gl.glPushMatrix();
         gl.glTranslatef(-0.3f, 0.0f, 0.05f);
         glu.gluDisk(q, .5f, .3f, SLICES, SLICES);
         gl.glPopMatrix();
-        
 
         //we create mouth
         gl.glPushMatrix();
@@ -193,9 +214,7 @@ public class Cafe {
         gl.glPopMatrix();
     }
 
-
-    public void draw_legs(GL gl, GLU glu, char c, boolean left)
-    {
+    public void draw_legs(GL gl, GLU glu, char c, boolean left) {
         gl.glPushMatrix();
         //we orientate axes if stan is jumping or is walking
         if (c == 'W') {
@@ -261,8 +280,58 @@ public class Cafe {
         gl.glPopMatrix();
     }
 
-    public void draw_arm_left(GL gl, GLU glu, char c) 
-    {
+    public void draw_arm_left_2(GL gl, GLU glu) {
+        set_red_material(gl);
+
+        gl.glPushMatrix();
+        gl.glRotated(43.49, 6.30, 12.60, -35.99);
+        gl.glTranslated(-0.08, -0.13, -0.07);
+        gl.glTranslatef(-0.45f, -0.42f, 0f);
+        glu.gluSphere(q, WIDTH_HANDS, SLICES, STACKS);
+        gl.glTranslatef(0.055f, 0.015f, 0.05f);
+        glu.gluSphere(q, WIDTH_FINGERS, SLICES, STACKS);
+        gl.glPopMatrix();
+        //we create left arm
+        set_shirt_material(gl);
+        gl.glPushMatrix();
+        gl.glRotated(43.49, 6.30, 12.60, -35.99);
+        gl.glTranslated(-0.08, -0.13, -0.07);
+        gl.glTranslatef(-0.37f, -0.125f, 0f);
+        gl.glRotatef(90f, 1f, -0.20f, 0f);
+        glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
+        glu.gluSphere(q, WIDTH_ARMS, SLICES, STACKS);
+        gl.glRotatef(90f, -1f, 0.20f, 0f);
+        gl.glTranslatef(0f, -HEIGHT_ARMS, 0f);
+        gl.glRotatef(90f, 1f, -0.20f, 0f);
+        gl.glPopMatrix();
+    }
+
+    public void draw_arm_rigth_2(GL gl, GLU glu) {
+        set_red_material(gl);
+        gl.glPushMatrix();
+        gl.glRotated(-43.49, 6.30, 12.60, -35.99);
+        gl.glTranslated(0.09, -0.1499, -0.16);
+        gl.glTranslatef(0.45f, -0.42f, 0f);
+        glu.gluSphere(q, WIDTH_HANDS, SLICES, STACKS);
+        gl.glTranslatef(-0.055f, 0.015f, 0.05f);
+        glu.gluSphere(q, WIDTH_FINGERS, SLICES, STACKS);
+        gl.glPopMatrix();
+        //we create right arm
+        set_shirt_material(gl);
+        gl.glPushMatrix();
+        gl.glRotated(-43.49, 6.30, 12.60, -35.99);
+        gl.glTranslated(0.09, -0.1499, -0.16);
+        gl.glTranslatef(0.37f, -0.125f, 0f);
+        gl.glRotatef(90f, 1f, 0.20f, 0f);
+        glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
+        glu.gluSphere(q, WIDTH_ARMS, SLICES, STACKS);
+        gl.glRotatef(90f, -1f, -0.20f, 0f);
+        gl.glTranslatef(0f, -HEIGHT_ARMS, 0f);
+        gl.glRotatef(90f, 1f, 0.20f, 0f);
+        gl.glPopMatrix();
+    }
+
+    public void draw_arm_left(GL gl, GLU glu, char c) {
         set_red_material(gl);
         gl.glPushMatrix();
         //we orientate axes if stan is walking or is jumping
@@ -303,11 +372,11 @@ public class Cafe {
         if (c == 'W') {
             gl.glRotatef(20, -1f, 0f, 0f);
         }
-        glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
-        glu.gluSphere(q, WIDTH_ARMS, SLICES, STACKS);
-        gl.glRotatef(90f, -1f, 0.20f, 0f);
-        gl.glTranslatef(0f, -HEIGHT_ARMS, 0f);
-        gl.glRotatef(90f, 1f, -0.20f, 0f);
+//        glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
+//        glu.gluSphere(q, WIDTH_ARMS, SLICES, STACKS);
+//        gl.glRotatef(90f, -1f, 0.20f, 0f);
+//        gl.glTranslatef(0f, -HEIGHT_ARMS, 0f);
+//        gl.glRotatef(90f, 1f, -0.20f, 0f);
         if (c == 'Q') {
             gl.glRotatef(20, -1f, 0f, 0f);
         }
@@ -322,8 +391,11 @@ public class Cafe {
         gl.glPopMatrix();
     }
 
-    public void draw_arm_right(GL gl, GLU glu, char c)
-    {
+    public void draw_arm_right2(GL gl, GLU glu) {
+
+    }
+
+    public void draw_arm_right(GL gl, GLU glu, char c) {
         set_red_material(gl);
         gl.glPushMatrix();
         //we orientate axes if stan is walking or is jumping
@@ -366,7 +438,7 @@ public class Cafe {
         if (c == 'Q') {
             gl.glRotatef(20, -1f, 0f, 0f);
         }
-        
+
         glu.gluCylinder(q, WIDTH_ARMS, WIDTH_ARMS, HEIGHT_ARMS, SLICES, STACKS);
         glu.gluSphere(q, WIDTH_ARMS, SLICES, STACKS);
         gl.glRotatef(90f, -1f, -0.20f, 0f);
@@ -378,8 +450,7 @@ public class Cafe {
         gl.glPopMatrix();
     }
 
-    public void draw_scarf(GL gl, GLU glu)
-    {
+    public void draw_scarf(GL gl, GLU glu) {
 
         //we create scarf
         set_red_material(gl);
@@ -391,8 +462,7 @@ public class Cafe {
 
     }
 
-    public void draw_torus(GL gl, float R, float r, int N, int n)
-    {
+    public void draw_torus(GL gl, float R, float r, int N, int n) {
 
         int maxn = 1000;
         n = Math.min(n, maxn - 1);
@@ -431,8 +501,7 @@ public class Cafe {
         }
     }
 
-    public void set_skin_material(GL gl)
-    {
+    public void set_skin_material(GL gl) {
         float[] mat_ambient = {1.0f, 0.79f, 0.68f, 0.0f};
         float[] mat_diffuse = {0.59f, 0.44f, 0.41f, 0.0f};
         float shine = 128f;
@@ -441,8 +510,7 @@ public class Cafe {
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
 
-    public void set_shirt_material(GL gl)
-    {
+    public void set_shirt_material(GL gl) {
         float mat_ambient[] = {0.5f, 0.45f, 0.3f, 1.0f};
         float[] mat_diffuse = {0.8f, 0.8f, 0.8f, 1.0f};
         float mat_specular[] = {0.4f, 0.3f, 0.2f, 1.0f};
@@ -453,8 +521,7 @@ public class Cafe {
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
 
-    public void set_red_material(GL gl)
-    {
+    public void set_red_material(GL gl) {
         float[] mat_ambient = {0.8f, 0.05f, 0.15f, 0.2f};
         float[] mat_diffuse = {0.4f, 0.4f, 0.4f, 1.0f};
         float[] mat_specular = {0.7f, 0.6f, 0.6f, 1.0f};
@@ -465,8 +532,7 @@ public class Cafe {
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
 
-    public void set_eyes_material(GL gl)
-    {
+    public void set_eyes_material(GL gl) {
         float mat_ambient[] = {0.5f, 0.5f, 0.5f, 1.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
         float mat_specular[] = {0.8f, 0.8f, 0.8f, 1.0f};
@@ -476,8 +542,8 @@ public class Cafe {
         gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_SPECULAR, mat_specular, 0);
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
-    public void set_white_material(GL gl)
-    {
+
+    public void set_white_material(GL gl) {
         float mat_ambient[] = {1.0f, 1.0f, 1.0f, 1.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
         float mat_specular[] = {0.8f, 0.8f, 0.8f, 1.0f};
@@ -488,8 +554,7 @@ public class Cafe {
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
 
-    public void set_blue_material(GL gl) 
-    {
+    public void set_blue_material(GL gl) {
         float mat_ambient[] = {0.2f, 0.2f, 0.6f, 1.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
         float mat_specular[] = {0.8f, 0.8f, 0.8f, 1.0f};
@@ -499,10 +564,8 @@ public class Cafe {
         gl.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_SPECULAR, mat_specular, 0);
         gl.glMaterialf(GL.GL_FRONT_AND_BACK, GL.GL_SHININESS, shine);
     }
-  
 
-    public void set_grey_material(GL gl) 
-    {
+    public void set_grey_material(GL gl) {
 
         float mat_ambient[] = {0.07f, 0.07f, 0.07f, 0.0f};
         float mat_diffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -516,8 +579,7 @@ public class Cafe {
 
     }
 
-    public void set_black_material(GL gl)
-    {
+    public void set_black_material(GL gl) {
 
         float mat_ambient[] = {0.0f, 0.0f, 0.0f, 1.0f};
         float mat_diffuse[] = {0.0f, 0.0f, 0.0f, 1.0f};
@@ -531,8 +593,7 @@ public class Cafe {
 
     }
 
-    public void box(GL gl) 
-    {
+    public void box(GL gl) {
         gl.glBegin(GL.GL_POLYGON);/* f1: front */
         gl.glNormal3f(-1.0f, 0.0f, 0.0f);
         gl.glVertex3f(0.0f, 0.0f, 0.0f);

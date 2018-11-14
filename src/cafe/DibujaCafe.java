@@ -27,8 +27,7 @@ import javax.swing.JFrame;
  *
  * @author Elizab eth
  */
-public class DibujaCafe extends JFrame implements GLEventListener, MouseListener, MouseMotionListener, KeyListener
-{
+public class DibujaCafe extends JFrame implements GLEventListener, MouseListener, MouseMotionListener, KeyListener {
 
     private float view_rotx = 0.01f;
     private float view_roty = 0.01f;
@@ -122,7 +121,7 @@ public class DibujaCafe extends JFrame implements GLEventListener, MouseListener
                 0.0f, 0.0f, 1.0f // is up
         );
         // Move the whole scene
-        
+
         gl.glTranslatef(X_POSITION, Y_POSITION, Z_POSITION);
         gl.glRotatef(view_rotx, 1.0f, 0.0f, 0.0f);
         gl.glRotatef(view_roty, 0.0f, 1.0f, 0.0f);
@@ -148,8 +147,8 @@ public class DibujaCafe extends JFrame implements GLEventListener, MouseListener
 
         }
         //we draw Stan in the window
-        Cafe stan = new Cafe(); 
-        stan.draw_stan(gl, keys['W'], keys['J'], keys['q']);         
+        Cafe stan = new Cafe();
+        stan.draw_stan(gl, keys['W'], keys['J'], keys['q']);
         // Flush all drawing operations to the graphics card
         gl.glFlush();
     }
@@ -173,6 +172,36 @@ public class DibujaCafe extends JFrame implements GLEventListener, MouseListener
     }
 
     public void keyTyped(KeyEvent e) {
+        switch (e.getKeyChar()) {
+            case 'q':
+                Cafe.tranx += 0.01;
+                break;
+            case 'a':
+                Cafe.tranx -= 0.01;
+                break;
+            case 'w':
+                Cafe.trany += 0.01;
+                break;
+            case 's':
+                Cafe.trany -= 0.01;
+                break;
+            case 'e':
+                Cafe.tranz += 0.01;
+                break;
+            case 'd':
+                Cafe.tranz -= 0.01;
+                break;
+            case '+':
+                Cafe.angle += 3;
+                break;
+            case '-':
+                Cafe.angle -= 3;
+                break;
+            case 'v':
+                System.out.println(Cafe.tranx + "\n" + Cafe.trany + "\n" + Cafe.tranz + "\n °" + Cafe.angle);
+                break;
+        }
+
     }
 
     public void keyReleased(KeyEvent e) {
@@ -196,14 +225,14 @@ public class DibujaCafe extends JFrame implements GLEventListener, MouseListener
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() < 250 && keys[e.getKeyCode()] == false) {
-            keys['W'] = false;
-            keys['J'] = false;
-            keys[e.getKeyCode()] = true;
-        } else {
-            keys[e.getKeyCode()] = false;
-        }
-        System.out.println("key press " + e.getKeyChar());
+//        if (e.getKeyCode() < 250 && keys[e.getKeyCode()] == false) {
+//            keys['W'] = false;
+//            keys['J'] = false;
+//            keys[e.getKeyCode()] = true;
+//        } else {
+//            keys[e.getKeyCode()] = false;
+//        }
+//        System.out.println("key press " + e.getKeyChar());
     }
 
 }
