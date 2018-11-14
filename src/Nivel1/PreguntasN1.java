@@ -158,13 +158,13 @@ public class PreguntasN1 extends JFrame implements ActionListener
         c.add(indic);
         pregunta.setBounds(20, 40, 450, 80);
         c.add(pregunta);
-        puntaje.setBounds(20, 250, 280, 50);
+        puntaje.setBounds(20, 300, 280, 50);
         c.add(puntaje);
-        A.setBounds(20, 130, 450, 30);
+        A.setBounds(20, 130, 450, 50);
         c.add(A);
-        B.setBounds(20, 170, 450, 30);
+        B.setBounds(20, 190, 450, 50);
         c.add(B);
-        C.setBounds(20, 210, 450, 30);
+        C.setBounds(20, 250, 450, 50);
         c.add(C);
 
     }

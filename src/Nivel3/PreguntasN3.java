@@ -51,41 +51,83 @@ public class PreguntasN3 extends JFrame implements ActionListener
     String[][] preg =
     {
         {
-            "", "", "", "", "", ""
+            "<html>Encapsulamiento</html>", 
+            "<html>a.	Mecanismo que agrupa el código en niveles de seguridad</html>",
+            "<html>b.	Define un método</html>",
+            "<html>c.	Construye un objeto</html>",
+            "a",
+            ""
         },
         {
-            "", "", "", "", "", ""
+            "<html>Polimorfismo</html>", 
+            "<html>a.	Permite poder usar un nombre para especificar una clase general de acciones.</html>",
+            "<html>b.	Mecanismo que agrupa el código en niveles de seguridad</html>",
+            "<html>c.	Define un método</html>",
+            "a",
+            ""
         },
         {
-            "", "", "", "", "", ""
+            "<html>Herencia</html>", 
+            "<html>a.	Un objeto puede adquirir las propiedades de otro.</html>",
+            "<html>b.	Un objeto adquiere propiedades de más de un objeto.</html>",
+            "<html>c.	Construye un objeto</html>",
+            "a",
+            ""
         },
         {
-            "", "", "", "", "", ""
+            "<html>¿Qué significa LIFO?</html>", 
+            "<html>a.	Last in First out</html>",
+            "<html>b.	First in first out</html>",
+            "<html>c.	Cola</html>",
+            "a",
+            ""
         },
         {
-            "", "", "", "", "", ""
+            "<html>¿Qué significa FIFO?</html>", 
+            "<html>a.	First in first out</html>",
+            "<html>b.	Last in First out</html>",
+            "<html>c.	Cola</html>",
+            "a",
+            ""
         },
         {
-            "", "", "", "", "", ""
+            "<html>Es un ejemplo de LIFO</html>", 
+            "<html>a.	Cola</html>",
+            "<html>b.	Pila</html>",
+            "<html>c.	Árbol</html>",
+            "b",
+            ""
         },
         {
-            "", "", "", "", "", ""
+            "<html>Es un ejemplo de FIFO</html>", 
+            "<html>a.	Cola</html>",
+            "<html>b.	Pila</html>",
+            "<html>c.	Árbol </html>",
+            "a",
+            ""
         },
         {
-            "", "", "", "", "", ""
+            "<html>Es una estructura de datos lineal </html>", 
+            "<html>a.	Pila</html>",
+            "<html>b.	Árbol</html>",
+            "<html>c.	Grafo</html>",
+            "a",
+            ""
         },
         {
-            "", "", "", "", "", ""
+            "<html>Es una estructura de datos no lineal</html>", 
+            "<html>a.	Pila</html>",
+            "<html>b.	Árbol</html>",
+            "<html>c.	Cola</html>",
+            "b",
+            ""
         },
-        {
-            "", "", "", "", "", ""
-        }
     };
 
     public PreguntasN3()
     {
 
-        setTitle("Nivel 2 -Estructura de Datos");
+        setTitle("Nivel 3 -Estructura de Datos");
         setSize(500, 400);
         c = getContentPane();
         c.setBackground(Color.cyan);
@@ -104,9 +146,9 @@ public class PreguntasN3 extends JFrame implements ActionListener
         pregunta.setFont(new Font("Kristen ITC", Font.CENTER_BASELINE, 14));
         puntaje = new JLabel("Puntos = 0 Vidas = 3");
         pregunta.setForeground(Color.DARK_GRAY);
-        A.setFont(new Font("Kristen ITC", 0, 17));
-        B.setFont(new Font("Kristen ITC", 0, 17));
-        C.setFont(new Font("Kristen ITC", 0, 17));
+        A.setFont(new Font("Kristen ITC", 0, 12));
+        B.setFont(new Font("Kristen ITC", 0, 12));
+        C.setFont(new Font("Kristen ITC", 0, 12));
 
         A.addActionListener(this);
         B.addActionListener(this);
@@ -122,14 +164,15 @@ public class PreguntasN3 extends JFrame implements ActionListener
         c.add(indic);
         pregunta.setBounds(20, 40, 450, 80);
         c.add(pregunta);
-        puntaje.setBounds(20, 250, 280, 50);
+        puntaje.setBounds(20, 300, 280, 50);
         c.add(puntaje);
-        A.setBounds(20, 130, 230, 30);
+        A.setBounds(20, 130, 450, 50);
         c.add(A);
-        B.setBounds(20, 170, 230, 30);
+        B.setBounds(20, 190, 450, 50);
         c.add(B);
-        C.setBounds(20, 210, 230, 30);
+        C.setBounds(20, 250, 450, 50);
         c.add(C);
+
 
     }
 
@@ -142,7 +185,7 @@ public class PreguntasN3 extends JFrame implements ActionListener
     public int numpregunta()
     {
 
-        a = RandomconRango(0, 9);
+        a = RandomconRango(0, 8);
         if (preguntas.contains(a))
         {
             return numpregunta();
@@ -202,7 +245,7 @@ public class PreguntasN3 extends JFrame implements ActionListener
 
             if (punt == 7)
             {
-                JOptionPane.showMessageDialog(null, "JUEGO COMPLETADO, FELICIDADES!!!");
+                JOptionPane.showMessageDialog(null, "Has avanzado de nivel");
                 pin.frame.dispose();
                 this.dispose();
                 PreguntasN4 p4 = new PreguntasN4();

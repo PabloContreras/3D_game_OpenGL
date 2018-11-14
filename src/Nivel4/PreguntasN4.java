@@ -119,7 +119,7 @@ public class PreguntasN4 extends JFrame implements ActionListener
     public PreguntasN4()
     {
 
-        setTitle("Nivel 2 -Matematicas Discretas");
+        setTitle("Nivel 4 -Matematicas Discretas");
         setSize(500, 400);
         c = getContentPane();
         c.setBackground(Color.cyan);
@@ -157,13 +157,13 @@ public class PreguntasN4 extends JFrame implements ActionListener
         c.add(indic);
         pregunta.setBounds(20, 40, 450, 80);
         c.add(pregunta);
-        puntaje.setBounds(20, 250, 280, 50);
+        puntaje.setBounds(20, 300, 280, 50);
         c.add(puntaje);
-        A.setBounds(20, 130, 230, 30);
+        A.setBounds(20, 130, 450, 50);
         c.add(A);
-        B.setBounds(20, 170, 230, 30);
+        B.setBounds(20, 190, 450, 50);
         c.add(B);
-        C.setBounds(20, 210, 230, 30);
+        C.setBounds(20, 250, 450, 50);
         c.add(C);
 
     }
@@ -177,7 +177,7 @@ public class PreguntasN4 extends JFrame implements ActionListener
     public int numpregunta()
     {
 
-        a = RandomconRango(0, 9);
+        a = RandomconRango(0, 7);
         if (preguntas.contains(a))
         {
             return numpregunta();
@@ -237,8 +237,9 @@ public class PreguntasN4 extends JFrame implements ActionListener
 
             if (punt == 7)
             {
-                JOptionPane.showMessageDialog(null, "Has avanzado de nivel");
+                JOptionPane.showMessageDialog(null, "JUEGO COMPLETADO, FELICIDADES!!!!");
                 //pin.frame.dispose();
+                alge.jframe.dispose();
                 this.dispose();
 
             }

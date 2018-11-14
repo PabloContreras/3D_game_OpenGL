@@ -52,7 +52,7 @@ public class GLRenderMain implements GLEventListener
         gl.glClearColor(0.9f, 0.9f, 0.9f, 0.9f);
         gl.glShadeModel(GL.GL_SMOOTH);
         
-        fondotag.agregaInit("src/TAG/conocimiento.jpg");
+        fondotag.agregaInit("src/Ima/cuatroPersonajes.png");
     }
     
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height)

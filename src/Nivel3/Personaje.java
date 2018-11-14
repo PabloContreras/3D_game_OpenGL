@@ -49,6 +49,7 @@ public class Personaje extends JFrame implements GLEventListener,
     PuntajeF pu;
     JFrame frame;
 
+
     public Personaje(PuntajeF pu)
     {
         this.pu = pu;
@@ -134,42 +135,28 @@ public class Personaje extends JFrame implements GLEventListener,
         //we draw Stan in the window
 //        Notepad note = new Notepad();
 //        note.draw_stan(gl, keys['W'], keys['J']);
-//        try {
-//            Texture tex = TextureIO.newTexture(new File("fondoP.jpg"), true);
-//            tex.enable();
-//            tex.bind();
-//            gl.glTexEnvi(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_REPLACE);
-//
-//            gl.glBegin(GL.GL_QUADS);
-//            gl.glTexCoord2f(0f, 1f);
-//            gl.glVertex3f(-5f, -3.5f, -1f);
-//            gl.glTexCoord2f(1f, 1f);
-//            gl.glVertex3f(5f, -3.5f, -1f);
-//            gl.glTexCoord2f(1f, 0f);
-//            gl.glVertex3f(5f, 3.5f, -1f);
-//            gl.glTexCoord2f(0f, 0f);
-//            gl.glVertex3f(-5f, 3.5f, -1f);
-//            gl.glEnd();
-//            tex.disable();
-//        } catch (Exception e) {
-//
-//        }
+        try {
+            Texture tex = TextureIO.newTexture(new File("fondoP.jpg"), true);
+            tex.enable();
+            tex.bind();
+            gl.glTexEnvi(GL.GL_TEXTURE_ENV, GL.GL_TEXTURE_ENV_MODE, GL.GL_REPLACE);
 
-        gl.glBegin(GL.GL_LINES);
-        set_material(gl, 1, 0, 0);
-        gl.glVertex3d(-10, 0, 0);
-        gl.glVertex3d(10, 0, 0);
+            gl.glBegin(GL.GL_QUADS);
+            gl.glTexCoord2f(0f, 1f);
+            gl.glVertex3f(-5f, -3.5f, -1f);
+            gl.glTexCoord2f(1f, 1f);
+            gl.glVertex3f(5f, -3.5f, -1f);
+            gl.glTexCoord2f(1f, 0f);
+            gl.glVertex3f(5f, 3.5f, -1f);
+            gl.glTexCoord2f(0f, 0f);
+            gl.glVertex3f(-5f, 3.5f, -1f);
+            gl.glEnd();
+            tex.disable();
+        } catch (Exception e) {
 
-        set_material(gl, 0, 1, 0);
-        gl.glVertex3d(0, -10, 0);
-        gl.glVertex3d(0, 10, 0);
-
-        set_material(gl, 0, 0, 1);
-        gl.glVertex3d(0, 0, -10);
-        gl.glVertex3d(0, 0, 10);
-
-        gl.glEnd();
-
+        }
+        
+        DibujaPersonaje p = new DibujaPersonaje(pu);
         p.posX = 0;
         p.posY = 0;
         p.posZ = 0;
@@ -185,7 +172,6 @@ public class Personaje extends JFrame implements GLEventListener,
 //        }
 
     }
-    DibujaPersonaje p = new DibujaPersonaje(pu);
 
     public void dibuja(Model m, GL gl) {
         gl.glBegin(GL.GL_TRIANGLES);

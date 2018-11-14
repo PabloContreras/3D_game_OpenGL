@@ -5,6 +5,7 @@
  */
 package tresPersonajes;
 
+import libro.MrsAlgebra;
 import cafe.Cafe;
 import com.sun.opengl.util.Animator;
 import com.sun.opengl.util.texture.Texture;
@@ -148,21 +149,28 @@ public class Scene implements GLEventListener, KeyListener, MouseListener, Mouse
         }
 
         gl.glPushMatrix();
-        gl.glTranslated(-2.0, -1.5, 1.0);
+        gl.glTranslated(-3.0, -1.5, 1.0);
         alan.dibujaPersonaje(gl, keys['W'] || keys['M'], keys['J'] || keys['K'], keys['V']);
         gl.glPopMatrix();
         
         gl.glPushMatrix();
         Cafe cafe = new Cafe();
-        gl.glTranslatef(0, -0.8f, 0.8f);
+        gl.glTranslatef(-1.0f, -0.8f, 0.8f);
         cafe.draw_stan(gl, keys['W'], keys['J'], keys['Q']);
         gl.glPopMatrix();
         
         gl.glPushMatrix();
         DrawMonito drawMonito = new DrawMonito();
-        gl.glTranslatef(1.8f, 0, 0.0f);
+        gl.glTranslatef(0.8f, -1.0f, 0.0f);
         drawMonito.draw_stan(gl, keys['W'], keys['J'], keys['A']);
         gl.glPopMatrix();
+        
+        gl.glPushMatrix();
+        MrsAlgebra mono = new MrsAlgebra();
+        gl.glTranslatef(2.5f, -1.0f, 0.0f);
+        mono.draw_stan(gl, keys['J']);
+        gl.glPopMatrix();
+        
         gl.glFlush();
     }
 

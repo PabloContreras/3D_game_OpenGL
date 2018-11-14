@@ -49,35 +49,76 @@ public class PreguntasN2 extends JFrame implements ActionListener
     String[][] preg =
     {
         {
-            "", "", "", "", "", ""
+            "<html>¿Está permitido que el nombre de una clase comience con un número?</html>",
+            "<html>a)	No</html>",
+            "<html>b)	Tal vez</html>",
+            "<html>c)	Definitivamente sí</html>",
+            "a",
+            ""
         },
         {
-            "", "", "", "", "", ""
+            "<html>¿Cuál de las siguientes es una palabra reservada en Java?:</html>",
+            "<html>a)  NULL</html>",
+            "<html>b)  new</html>",
+            "<html>c) instanceOf</html>",
+            "b",
+            ""
         },
         {
-            "", "", "", "", "", "" 
+            "<html>¿Cuál de las siguientes instrucciones compila sin provocar un warning o un error?  </html>",
+            "<html>a) char c = ”a”; </html>",
+            "<html>b) byte b = 257;</html>",
+            "<html>c) int i = 10;</html>",
+            "c",
+            "" 
         },
         {
-            "", "", "", "", "", ""
+            "<html>¿Cuál de los siguientes no es un identificador válido en Java?</html>",
+            "<html>a)	$variable</html>",
+            "<html>b)	#variable</html>",
+            "<html>c)	variable</html>",
+            "b",
+            "" 
         },
         {
-            "", "", "", "", "", ""
+            "<html>Dada la declaración de las siguientes variables, indicar cuáles de ellas son correctas.\n" +
+"1)	float foo = -1;<br>" +
+"2)	float foo1 = 1.0; <br>" +
+"3)	float foo2 = 42e1; <br>" +
+"4)	float foo3 = 2.02f; <br>" +
+"5)	float foo4 = 3.03d; <br>" +
+"6)	float foo5 = 0x0123;</html>",
+            "<html>a)	1 y 2</html>",
+            "<html>b)	4 y 6</html>",
+            "<html>c)	2 y 5</html>",
+            "b",
+            "" 
         },
         {
-            "", "", "", "", "", ""
+            "<html>Respecto a los bucles, indique cuál de las siguientes afirmaciones es falsa:</html>",
+            "<html>a)	El cuerpo de un bucle for-each puede repetirse 0 o más veces.</html>",
+            "<html>b)	Un bucle for-each puede aplicarse sobre cualquier clase que implemente la interfaz Iterable.</html>",
+            "<html>c)	El cuerpo de un bucle while siempre se ejecuta, como mínimo, una vez.</html>",
+            "c",
+            "" 
         },
         {
-            "", "", "", "", "", ""
+            "<html>7. ¿Qué elementos cree que definen a un objeto?</html>",
+            "<html>a)	La forma en que establece comunicación e intercambia mensajes</html>",
+            "<html>b)	Sus atributos y sus métodos</html>",
+            "<html>c)	Sus cardinalidad y su tipo </html>",
+            "b",
+            "" 
         },
         {
-            "", "", "", "", "", "" 
+            "<html>Según  el  texto  de  la  bibliografía  básica  de  la  asignatura,  indique  cuál  de  las  siguientes  afirmaciones  es  correcta:  	</html>",
+            "<html>a)	Los campos se conocen como variables de objeto.</html>",
+            "<html>b)	El alcance de una variable define la sección de código desde donde la variable puede ser declarada.</html>",
+            "<html>c)	Los constructores permiten que cada objeto sea preparado adecuadamente cuando es creado.</html>",
+            "b",
+            "" 
         },
-        {
-            "", "", "", "", "", ""
-        },
-        {
-            "", "", "", "", "", ""
-        }
+     
     };
 
     public PreguntasN2()
@@ -102,9 +143,9 @@ public class PreguntasN2 extends JFrame implements ActionListener
         pregunta.setFont(new Font("Kristen ITC", Font.CENTER_BASELINE, 14));
         puntaje = new JLabel("Puntos = 0 Vidas = 3");
         pregunta.setForeground(Color.DARK_GRAY);
-        A.setFont(new Font("Kristen ITC", 0, 17));
-        B.setFont(new Font("Kristen ITC", 0, 17));
-        C.setFont(new Font("Kristen ITC", 0, 17));
+        A.setFont(new Font("Kristen ITC", 0, 12));
+        B.setFont(new Font("Kristen ITC", 0, 12));
+        C.setFont(new Font("Kristen ITC", 0, 12));
 
         A.addActionListener(this);
         B.addActionListener(this);
@@ -120,13 +161,13 @@ public class PreguntasN2 extends JFrame implements ActionListener
         c.add(indic);
         pregunta.setBounds(20, 40, 450, 80);
         c.add(pregunta);
-        puntaje.setBounds(20, 250, 280, 50);
+        puntaje.setBounds(20, 300, 280, 50);
         c.add(puntaje);
-        A.setBounds(20, 130, 230, 30);
+        A.setBounds(20, 130, 450, 50);
         c.add(A);
-        B.setBounds(20, 170, 230, 30);
+        B.setBounds(20, 190, 450, 50);
         c.add(B);
-        C.setBounds(20, 210, 230, 30);
+        C.setBounds(20, 250, 450, 50);
         c.add(C);
 
     }
@@ -140,7 +181,7 @@ public class PreguntasN2 extends JFrame implements ActionListener
     public int numpregunta()
     {
 
-        a = RandomconRango(0, 9);
+        a = RandomconRango(0, 7);
         if (preguntas.contains(a))
         {
             return numpregunta();

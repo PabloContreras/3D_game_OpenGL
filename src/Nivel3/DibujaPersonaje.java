@@ -129,7 +129,7 @@ public class DibujaPersonaje {
 //        dibujaCuerpo(gl, glu);
 //        dibujaCla(gl, glu);
         try {
-            if (jump) {
+            if (jump || pu.isRespuestacorrecta()) {
                 if (arriba && alto <= 1) {
                     alto += 0.2f;
                     if (alto >= 1) {
@@ -190,7 +190,7 @@ public class DibujaPersonaje {
 
             gl.glPushMatrix();
 
-            if (vuela) {
+            if (vuela ) {
                 if (volar) {
                     gl.glPushMatrix();
                     gl.glRotatef(90, 0, 0, 1f);
@@ -213,6 +213,8 @@ public class DibujaPersonaje {
                 dibujaManoDe(m, gl);
                 dibujaManoIz(m, gl);
             }
+            
+           
 
             dibujaPico(m, gl);
             dibujaOjos(m, gl);

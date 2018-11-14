@@ -102,7 +102,7 @@ public class Cafe {
         }
            
        //stan is jumping
-        else if(jump && mvt%20+10>20){
+        else if(jump && mvt%20+10>20 ){
             gl.glTranslatef(0f, 0.35f, 0f);
             draw_legs(gl, glu, 'J', false);
             draw_legs(gl, glu, 'J', true);

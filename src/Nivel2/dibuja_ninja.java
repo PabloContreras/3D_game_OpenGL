@@ -59,21 +59,25 @@ public class dibuja_ninja {
         glu.gluQuadricOrientation(q, GLU.GLU_OUTSIDE);
         glu.gluQuadricNormals(q, GLU.GLU_SMOOTH);
 
+        
         //Octocat is walking
-        if(walk && mvt%20+10>20){
+        if(walk && mvt%20+10>20)
+        {
             draw_legs(gl, glu, 'W', false);
             draw_legs(gl, glu, ' ', true);
             draw_arm_left(gl, glu, ' ');
             draw_arm_right(gl, glu, 'W');
             draw_head (gl, glu, false);
         }
-        else if(walk && mvt%20+10<=20){
+        else 
+            if(walk && mvt%20+10<=20)
+            {
             draw_legs(gl, glu, ' ', false);
             draw_legs(gl, glu, 'W', true);
             draw_arm_left(gl, glu, 'W');
             draw_arm_right(gl, glu, ' ');
             draw_head (gl, glu, false);
-        }
+            }
         if(walkAlone && mvt%20+10>20){
             draw_legs(gl, glu, 'A', false);
             draw_legs(gl, glu, ' ', true);
@@ -81,16 +85,18 @@ public class dibuja_ninja {
             draw_arm_right(gl, glu, 'A');
             draw_head (gl, glu, false);
         }
-        else if(walkAlone && mvt%20+10<=20){
+        else 
+            if(walkAlone && mvt%20+10<=20)
+            {
             draw_legs(gl, glu, ' ', false);
             draw_legs(gl, glu, 'A', true);
             draw_arm_left(gl, glu, 'A');
             draw_arm_right(gl, glu, ' ');
             draw_head (gl, glu, false);
-        }
+            }
            
        //octocat is jumping
-        else if((jump && mvt%20+10>20 ) || pu.isRespuestacorrecta() ){
+else if((jump && mvt%20+10>20 || pu.isRespuestacorrecta())){
             gl.glTranslatef(0f, 0.35f, 0f);
             draw_legs(gl, glu, 'J', false);
             draw_legs(gl, glu, 'J', true);

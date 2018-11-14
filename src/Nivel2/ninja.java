@@ -50,6 +50,7 @@ public class ninja extends JFrame implements GLEventListener,
     private static final float Z_POSITION = 0f;
     PuntajeF pu;
     JFrame frame;
+    dibuja_ninja ninja;
 
     public ninja(PuntajeF pu)
     {
@@ -205,7 +206,8 @@ public class ninja extends JFrame implements GLEventListener,
         }
         //we draw Stan in the window
         DrawMonito stan = new DrawMonito();
-        stan.draw_stan(gl, keys['W'], keys['J'], keys['A']);
+        ninja = new dibuja_ninja(pu);
+        ninja.draw_stan(gl, keys['W'], keys['J'], keys['A']);
         // Flush all drawing operations to the graphics card
         gl.glFlush();
     }
